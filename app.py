@@ -38,6 +38,6 @@ def contactus():
 @app.route('/userpage')
 def user_page():
     return render_template('userpage.html')
-#starting
+
 if __name__ == "__main__":
     app.run(debug=True)
