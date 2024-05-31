@@ -27,6 +27,8 @@ def add_data():
     user_data.insert_one(data)
     return jsonify(message="Successfully added data record"), 201
 
+#Hello world
+
 @app.route('/aboutus')
 def aboutus():
     return render_template('aboutus.html')
