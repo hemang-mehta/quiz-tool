@@ -1,12 +1,39 @@
+{% if user_auth is not none%} {% include 'navbar_after_login.html'%}
+{%else%} {% include 'navbar_before_login.html'%}
+{% endif %}
+
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/up.css')}}">
-    <title>User Page</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/up.css')}}">
+        <title>User Page</title>
 </head>
 <body>
-    
-
+        
+        <p style="color: black;">{{user_auth}}</p>
+        <!-- To display ->
+                Number of tests given
+                Score achieved on each test
+                Average score
+                Button to give new test               
+        -->
+        <table>
+                <thead>
+                    <tr>
+                        <th>Names</th>
+                        <th>Passwords</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in u_data %}
+                        <tr>
+                            <td>{{ record.name }}</td>
+                            <td>{{ record.password }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </body>
 </body>
 </html>

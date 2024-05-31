@@ -4,36 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/all.css">
     <title>Login</title>
 </head>
 <body>
     <h1>Login Details</h1>
     <div class="container">
-    <form action="/add_data" method="POST">
-        <input type="text" id="name" placeholder="Name">
-        <input type="password" id="password" placeholder="Password">
+    <form action="{{url_for('login')}}" method="POST">
+        <input type="text" name = "name" id="name" placeholder="Name">
+        <input type="password" name = "password" id="password" placeholder="Password">
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <button type="submit">Login</button>
     </form>
-    <button id="addRecords" onclick="submitData">Login</button>
     </div>
-    <script>
-        document.getElementById("addRecords").addEventListener("click", submitData);
-        function submitData(event) {
-            event.preventDefault();
-            var name = document.getElementById("name").value;
-            var password = document.getElementById("password").value;
-            
-            document.getElementById('name').value = "";
-            document.getElementById('password').value = "";
-            var data = {
-                "name": name,
-                "password": password
-            };
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/add_data", true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            console.log(data);
-            xhr.send(JSON.stringify(data));
-        }
-    </script>
 </body>
 </html>

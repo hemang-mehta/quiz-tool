@@ -1,4 +1,6 @@
-{% include 'navbar_before_login.html' %}
+{% if user_auth is not none%} {% include 'navbar_after_login.html'%}
+{%else%} {% include 'navbar_before_login.html'%}
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +9,6 @@
     <title>Main Page</title>
 </head>
 <body>
-    
+    <h1>{{message}}</h1>
 </body>
 </html>

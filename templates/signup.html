@@ -4,19 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/all.css">
     <title>Signup</title>
 </head>
 <body>
     <h1>Sign Up</h1>
     <div class="container">
-    <form action="/add_data" method="POST">
-        <input type="text" id="name" placeholder="Name">
-        <input type="password" id="password" placeholder="Password">
+    <form action="{{ url_for('signup')}}" method="POST">
+        <input type="text" name="name" id="name" class="name" placeholder="Name">
+        <input type="password" name="password" id="password" class="password" placeholder="Password">
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <button type="submit">Sign Up</button>
     </form>
-    <button id="addRecords" onclick="submitData">Add Data</button>
-    <button id="deleteButton">Delete Data</button>
+   
     </div>
-    <script>
+</body>
+</html>
+    <!-- <script>
         document.getElementById('deleteButton').addEventListener("click", function(){
             fetch("/delete_all_records", {
                 method: "POST"
@@ -49,9 +55,19 @@
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/add_data", true);
             xhr.setRequestHeader('Content-Type', 'application/json');
-            console.log(data);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        window.location.href = "/login";
+                    }
+                    else {
+                        window.location.href = "/signup";
+                    }
+                }
+            }
+            console.log(data)
             xhr.send(JSON.stringify(data));
         }
     </script>
 </body>
-</html>
+</html> -->
