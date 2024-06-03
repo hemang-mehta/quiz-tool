@@ -1,0 +1,44 @@
+{% if user_auth is not none%} {% include 'navbar_after_login.html'%}
+{%else%} {% include 'navbar_before_login.html'%}
+{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+</head>
+<body>
+    <form id="quizform" method="POST" action="quizpage">
+    <!-- <input type="hidden" name="difficulty_lvl" value="{{ diff_lvl }}"> -->
+    <table>
+        <thead>
+            <h1>Questions</h1>
+        </thead>
+        <tbody>
+            {% for record in ques_data %}
+                <tr>
+                    <td><b>{{ loop.index }}.</b> <pre>{{ record.question }}</pre> </td>
+                </tr>
+                <tr>
+                    {% if record.code is not none%}
+                    <td><pre>{{ record.code | safe }}</pre></td>
+                    {% endif %}
+                </tr>
+                <tr>
+                <td>
+                    <select name="{{ record._id }}">
+                        {% for option in record.options %}
+                            <option value="{{ loop.index }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+                <tr><td><br></td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

@@ -11,29 +11,36 @@
 </head>
 <body>
         
-        <p style="color: black;">{{user_auth}}</p>
+        <h1 style="color: black;">Welcome {{user_auth}}</h1>
         <!-- To display ->
                 Number of tests given
                 Score achieved on each test
                 Average score
                 Button to give new test               
         -->
-        <table>
-                <thead>
-                    <tr>
-                        <th>Names</th>
-                        <th>Passwords</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for record in u_data %}
-                        <tr>
-                            <td>{{ record.name }}</td>
-                            <td>{{ record.password }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        {% for i in user_score_data.test_scores %}
+        <p>{{ i }}</p>
+        {% endfor %}
+
+        <p>{{ user_score_data.test_scores.Easy }}</p>
+        <p>{{ user_score_data.test_scores.Medium }}</p>
+        <p>{{ user_score_data.test_scores.Hard }}</p>
+        
+        <button id="startquiz">Give quiz</button>
+        <form method='POST'>
+            <div id="difficulty_level">
+                <button type="submit" name="difficulty_level" value="Easy">Easy</button>
+                <button type="submit" name="difficulty_level" value="Medium">Medium</button>
+                <button type="submit" name="difficulty_level" value="Hard">Hard</button>
+            </div>
+        </form>
         </body>
+        <script>
+                const first_btn = document.getElementById('startquiz')
+                const diff_lvl = document.getElementById('difficulty_level')
+                first_btn.addEventListener("click", function(){
+                        diff_lvl.style.display = "block";
+                });
+        </script>
 </body>
 </html>

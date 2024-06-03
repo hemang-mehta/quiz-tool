@@ -11,3 +11,7 @@
 #view{
     display: block;
 }
+
+#difficulty_level{
+    display: none;
+}

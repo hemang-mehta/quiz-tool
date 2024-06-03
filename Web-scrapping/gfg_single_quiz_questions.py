@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import time
 import re
+import random
 
 def get_questions(main_page, gfg):
     chrome_options = Options()
@@ -29,7 +30,7 @@ def get_questions(main_page, gfg):
     links = driver.find_elements(By.CLASS_NAME, 'QuizQuestionCard_quizCard__tagCollection__discussIt__P4q4G')
     # Get the urls from those links
     hrefs = [sanitize_url(link.find_element(By.TAG_NAME, 'a').get_attribute('href')) for link in links]
-    
+    difficulty = [1,2,3]
     q_no = 1
     for href in hrefs:
         try:
@@ -57,7 +58,7 @@ def get_questions(main_page, gfg):
                 op = option.find_element(By.TAG_NAME, 'div')
                 options_list.append(op.text)
 
-            gfg[question] = {'options':options_list, 'correct_ans': Correct_option, 'code': code_snippet}
+            gfg.append({'question':question,'options':options_list, 'correct_ans': Correct_option, 'code': code_snippet, 'difficulty': random.choice(difficulty)})
         except Exception as e:
             print('*'*100)
             print(f"Exception {Exception} occured for quesiton {q_no}.")
