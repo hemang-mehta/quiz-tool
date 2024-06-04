@@ -1,6 +1,16 @@
+.welcome{
+    display:flex;
+    justify-content: center;
+}
+
+.difficulty_Easy, .difficulty_Medium, .difficulty_Hard {
+    td.key{
+        font-size: 20px;
+    }
+}
+
 .container{
     display: block;
-    
     gap: 10px;
 }
 
@@ -15,3 +25,45 @@
 #difficulty_level{
     display: none;
 }
+
+.difficulty-scores {
+    display: flex; /* Arrange keys in a row */
+    /* justify-content: space-between; Distribute keys evenly */
+    justify-content: center;
+    margin-bottom: 10px; /* Add some space below the keys */
+}
+
+.difficulty-scores span {
+    padding: 5px 10px; /* Add padding to keys */
+    border: 1px solid #ddd; /* Add a border */
+    border-radius: 5px; /* Add rounded corners */
+}
+
+.difficulty.easy {
+    margin: 40px;
+    background-color: #90EE90; /* Green for easy */
+}
+
+.difficulty.medium {
+      margin: 40px;
+      background-color: #FFFF99; /* Yellow for medium */
+    }
+    
+    .difficulty.hard {
+      margin: 40px;
+    background-color: #FFCC99; /* Orange for hard */
+  }
+  
+  .score-data {
+    display: flex;
+    align-items: center; /* Align key and value vertically */
+    margin-bottom: 5px; /* Add spacing between scores */
+  }
+  
+  .score-key {
+    font-weight: bold;
+    margin-right: 10px; /* Add space between key and value */
+  }
+  
+  /* Add styles for score-value and any additional elements */
+  

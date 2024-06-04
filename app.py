@@ -1,8 +1,11 @@
 from bson import ObjectId
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, session
 from pymongo import MongoClient
 
-client = MongoClient('mongodb+srv://hemangmehta1703:hemang@mcq-tool.orytooa.mongodb.net/?retryWrites=true&w=majority&appName=MCQ-tool')
+file = open('mongo_url.txt')
+mongo_url = file.read()
+client = MongoClient(mongo_url)
+file.close()
 
 collection = client['MCQ-tool']
 User_login_data = collection['User_login_data']
@@ -45,7 +48,9 @@ def signup():
     if request.method == "POST":
         name = request.form['name']
         password = request.form['password']
-        if User_login_data.find_one({'name': name}):
+        if name == "" or password == "":
+            error = "Enter both Name and Password."
+        elif User_login_data.find_one({'name': name}):
             error = "You already have an account"
         else:
             User_login_data.insert_one({'name':name, 'password':password})

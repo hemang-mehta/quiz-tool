@@ -6,25 +6,47 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{url_for('static', filename='css/up.css')}}">
+        <link rel="stylesheet" href="static/css/up.css">
         <title>User Page</title>
 </head>
 <body>
-        
-        <h1 style="color: black;">Welcome {{user_auth}}</h1>
+        <div class="welcome">
+            <h1 style="color: black;">Welcome {{user_auth}}</h1>
+        </div>
         <!-- To display ->
                 Number of tests given
                 Score achieved on each test
                 Average score
                 Button to give new test               
         -->
-        {% for i in user_score_data.test_scores %}
-        <p>{{ i }}</p>
-        {% endfor %}
-
-        <p>{{ user_score_data.test_scores.Easy }}</p>
-        <p>{{ user_score_data.test_scores.Medium }}</p>
-        <p>{{ user_score_data.test_scores.Hard }}</p>
+        <table>
+                {% set ns = namespace(num_tests=0) %}
+                {% set avgs = namespace(avg_score=0) %}
+                <div class="difficulty-scores">
+                    <span class="difficulty easy">easy</span>
+                    <span class="difficulty medium">medium</span>
+                    <span class="difficulty hard">hard</span>
+                  </div>
+                  
+                  {% for key, value in user_score_data.test_scores.items() %}
+                    <div class="score-data">
+                      <span class="score-key">{{ key }}</span>
+                      {% set ns.num_tests = ns.num_tests + (value | length) %}
+                      {% for item in value %}
+                            {{ item }}
+                            {% set avgs.avg_score = avgs.avg_score + item %}
+                      {% endfor %}
+                    </div>
+                  {% endfor %}
+                  
+                <tr>
+                    <td colspan="3">Number of tests given -> {{ ns.num_tests }}</td>
+                    {% set avgs.avg_score = avgs.avg_score/ns.num_tests %}
+                    <td>Average score -> {{avgs.avg_score}}</td>
+                </tr>
+            </table>
+            
+            
         
         <button id="startquiz">Give quiz</button>
         <form method='POST'>

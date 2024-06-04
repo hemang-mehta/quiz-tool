@@ -1,0 +1,9 @@
+.mr-auto,.mx-auto{
+    margin-right:auto!important
+}
+
+.nav-item{
+    -ms-flex:1 1 auto;
+    flex:1 1 auto;
+    text-align:center;
+}
