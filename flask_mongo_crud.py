@@ -3,7 +3,11 @@ from pymongo import MongoClient
 
 app=Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mydata"
-client = MongoClient('mongodb+srv://hemangmehta1703:hemang@mcq-tool.orytooa.mongodb.net/?retryWrites=true&w=majority&appName=MCQ-tool')
+file = open('mongo_url.txt')
+mongo_url, sk = file.readlines()
+mongo_url = mongo_url.strip()
+client = MongoClient(mongo_url)
+file.close()
 
 db = client['MCQ-tool']
 collection = db['data']

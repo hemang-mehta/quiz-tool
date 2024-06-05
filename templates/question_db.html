@@ -1,0 +1,69 @@
+{% include 'navbar_after_login.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database</title>
+</head>
+<body>
+    <div class="main">
+        <h1>Question Database</h1>
+    </div>
+    <form id="q_database" method="POST" action="qdb">
+        <div class="database">
+            <table>
+                <thead>
+                    <th>Sr. No.</th>
+                    <th>Question</th>
+                    <th>Code</th>
+                    <th>Options</th>
+                    <th>Correct Answer</th>
+                    <th>Difficulty</th>
+                </thead>
+                {% for question in database %}
+                    <tr>
+                        <td>
+                            {{ loop.index }}
+                        </td>
+                        <td>
+                            {{ question.question }}
+                        </td>
+                        <td style="text-align: left; white-space: pre-wrap;">
+                            <pre>
+                                {{ question.code }}
+                            </pre>
+                        </td>
+                        <td>
+                            {% for option in question.options %}
+                                <p>{{ option }}</p>
+                            {%endfor%}
+                        </td>
+                        <td>
+                            {{ question.correct_ans}}
+                        </td>
+                        <td>
+                                <p class="card-text">
+                                <select name="{{ question._id }}">
+                                    {% for option in range(1,4) %}
+                                    {% if option == question.difficulty %}
+                                    <option value="{{ option }}" selected>{{ option }}</option>
+                                    {% else %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                    {%endif%}
+                                    {% endfor %}
+                                </select>
+                            </p>
+                           
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="button-container">
+                <button type="submit" name="submit" class="submit" value="savechanges">Save Changes</button>
+                <button type="submit" name="submit" class="submit" value="goback">Go back</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% include 'navbar_after_login.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/adminpage.css">
+    <title>Admin Page</title>
+</head>
+<body>
+    <!-- 
+        Button - Change questions ----------------------------------#> DONE
+        Button - Look at user performance
+        Button - Get new questions
+     -->
+    <div class="Welcome">
+        <h1>Welcome admin!</h1>
+    </div>
+    <form action="/adminpage" method="POST">
+        <button type="submit" name="button_clicked" value="QDB">Questions Database</button>
+        
+        <button type="button" name="button_clicked" id="gnq" value="GNQ">Get new questions</button>
+        <div id="numlinks" style="display: none;">
+            <p>Enter number of links to scrape to get new questions:</p>
+            <input type="number" name="numlinks">
+            <button type="submit" name="button_clicked" id="submit" value="GNQ">Submit</button>
+            <div id="wait" style="display: none;"><p>Please Wait!!!</p></div>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <ul class="messages" style="list-style-type: none;">
+                {% for message, category in messages %}
+                    <li class="alert alert-{{ category }}">
+                        {{ category }}
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </form>
+</body>
+<script>
+    const newQuesButton = document.getElementById('gnq');
+    const numLinksDiv = document.getElementById('numlinks');
+    const submit = document.getElementById('submit');
+    const waiting = document.getElementById('wait')
+
+    newQuesButton.addEventListener("click", function() {
+        numLinksDiv.style.display = "block";
+    });
+
+    submit.addEventListener("click", function(){
+        waiting.style.display = "block";
+    })
+</script>
+</html>

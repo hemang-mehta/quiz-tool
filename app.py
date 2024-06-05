@@ -1,9 +1,12 @@
 from bson import ObjectId
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from pymongo import MongoClient
+from Web_scrapping import gfg_ques_retrieval
 
 file = open('mongo_url.txt')
-mongo_url = file.read()
+mongo_url, sk = file.readlines()
+mongo_url = mongo_url.strip()
+sk = sk.strip()
 client = MongoClient(mongo_url)
 file.close()
 
@@ -14,7 +17,7 @@ q_db = collection['Questions_database']
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mydata"
-app.secret_key = "quiz-tool.."
+app.secret_key = sk
 
 @app.route('/')
 def home():
@@ -32,6 +35,8 @@ def login():
         password = request.form['password']
         if User_login_data.find_one({'name': name, 'password': password}):
             session['user'] = name
+            if name == "admin":
+                return redirect(url_for('adminpage'))
             return redirect(url_for('userpage'))
         else:
             error = "Incorrect userID or password."
@@ -59,6 +64,44 @@ def signup():
             return render_template('login.html')
     return render_template('signup.html', error=error)
 
+@app.route('/adminpage', methods=['GET', 'POST'])
+def adminpage():
+  if request.method == 'POST':
+    button_clicked = request.form['button_clicked']
+    if button_clicked == 'QDB':
+      return redirect(url_for('qdb'))
+    elif button_clicked == 'GNQ':
+      num_links = request.form['numlinks']
+      gfg_ques_retrieval.scrape_questions(num_links)
+      flash('Website scrapped successfuly!!!', 'info')
+      return render_template('adminpage.html')
+    else:
+      return render_template('adminpage.html')
+  if session['user'] == 'admin':
+    return render_template('adminpage.html')
+  else:
+      return redirect(url_for('logout'))
+
+
+@app.route('/qdb', methods=['GET', 'POST'])
+def qdb():
+    if session['user'] == 'admin':
+        q = list(q_db.find({}))
+        if request.method == 'POST':
+            button_clicked = request.form['submit']
+            if button_clicked=='savechanges':
+                new_diff_lvl = request.form.to_dict()
+                new_diff_lvl.pop('submit', None)
+                for id, d_lvl in new_diff_lvl.items():
+                    q_db.update_one({'_id': ObjectId(id)}, {'$set': {'difficulty': int(d_lvl)}})
+                flash('Questions updated successfuly!!!', 'info')
+                return redirect(url_for('adminpage'))
+            else:
+                return redirect(url_for('adminpage'))
+        return render_template('question_db.html', database = q)
+    else:
+        return redirect(url_for('signup'))
+
 @app.route('/aboutus')
 def aboutus():
     if 'user' in session:
@@ -79,6 +122,8 @@ def contactus():
 def userpage():
     if 'user' in session:
         user = session['user']
+        if user == "admin":
+            return redirect(url_for('adminpage'))
         if request.method == 'POST':
             diff = request.form.get('difficulty_level')
             return redirect(url_for('quizpage', difficulty_lvl = diff))
