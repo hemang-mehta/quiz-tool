@@ -6,9 +6,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/hp.css">
     <title>Main Page</title>
 </head>
 <body>
-    <h1>{{message}}</h1>
+    <div class="main">
+        <h1>Welcome to Quiz-Tool</h1>
+    </div>
+    <div class="homepage_body">
+        <form action="/" method="POST">
+            <h3>
+                Let's begin?
+            </h3>
+            <button type="submit" class="enter_button" value="login" name="enter">Login</button>
+            <button type="submit" class="enter_button" value="signup" name="enter">Signup</button>
+        </form>
+    </div>
 </body>
 </html>

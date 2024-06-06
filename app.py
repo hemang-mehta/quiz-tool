@@ -19,12 +19,21 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mydata"
 app.secret_key = sk
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
     if 'user' in session:
         user = session['user']
+        return redirect(url_for('userpage'))
     else:
-        user = None
+        if request.method == 'POST':
+            button_clicked = request.form['enter']
+            if button_clicked == 'login':
+                user = None
+                return redirect(url_for('login'))
+            elif button_clicked == 'signup':
+                user = None
+                return redirect(url_for('signup'))
+    user = None
     return render_template('homepage.html', user_auth = user)
 
 @app.route('/login', methods=['GET', 'POST'])

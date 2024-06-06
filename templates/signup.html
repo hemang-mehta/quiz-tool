@@ -1,58 +1,89 @@
 {% include 'navbar_before_login.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/signup.css">
-    <title>Signup</title>
-</head>
-<body>
-    <div class="signup-container">
-        <div class="signup-form">
-          <h1>Sign Up</h1>
-    
-          <form action="{{ url_for('signup')}}" method="POST">
-            <div class="input-field">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="name" placeholder="Name">
+<section class="rounded-md bg-black/80 p-2">
+  <div class="flex items-center justify-center bg-white px-4 py-10 sm:px-6 sm:py-16 lg:px-8">
+    <div class="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
+      <h2 class="text-2xl font-bold leading-tight text-black">
+        Sign up to create account
+      </h2>
+      <p class="mt-2 text-base text-gray-600">
+        Already have an account?
+        <a
+          href="/login"
+          title=""
+          class="font-medium text-black transition-all duration-200 hover:underline"
+        >
+          Sign In
+        </a>
+      </p>
+      <form action="{{ url_for('signup')}}" method="POST" class="mt-8" onsubmit="return validatePasswords()">
+        <div class="space-y-5">
+          <div>
+            <label for="name" class="text-base font-medium text-gray-900">
+              Name
+            </label>
+            <div class="mt-2">
+              <input
+                class="name flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                type="text"
+                placeholder="Name"
+                id="name"
+                name="name"
+              />
             </div>
-            <div class="input-field">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="password" placeholder="Password">
-                <i class="fas fa-eye-slash"> </i>
+          </div>
+          <div>
+            <div class="flex items-center justify-between">
+              <label for="password" class="text-base font-medium text-gray-900">Password</label>
             </div>
-            {% if error %}
-                <p style="color: red;">{{ error }}</p>
+            <div class="mt-2">
+              <input type="password" name="password" id="password" placeholder="Password" name="password" style="margin-bottom: 20px;"
+              class="password flex 
+              h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 
+              focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50">
+
+           
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center justify-between">
+              <label for="confirmpassword" class="text-base font-medium text-gray-900">Confirm Password</label>
+            </div>
+            <div class="mt-2">
+              <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password" name="confirmpassword" style="margin-bottom: 20px;"
+              class="password flex 
+              h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 
+              focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50">
+              <p id="passwordError" style="color: red; display: none;">Passwords do not match.</p>
+              {% if error %}
+              <p style="color: red;">{{ error }}</p>
             {% endif %}
-            <button type="submit" class="signup-button">Sign Up</button>
-            </form>
-    
-          <div class="form-footer">
-            <p>Already a user? <a href="/login" class="sign-up">Login</a></p>
+            </div>
+          </div>
+          <div>
+            <button
+              type="submit"
+              class="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+            >
+              Create Account
+            </button>
           </div>
         </div>
-      </div>
-</body>
-</html>
-<!-- 
-    <div class="signup-container">
-    <div class="login-form">
-      <h1>Sign Up</h1>
-
-      <form action="{{ url_for('signup')}}" method="POST">
-        <input type="text" name="name" id="name" class="name" placeholder="Name">
-        <input type="password" name="password" id="password" class="password" placeholder="Password">
-        {% if error %}
-            <p style="color: red;">{{ error }}</p>
-        {% endif %}
-        <button type="submit">Sign Up</button>
-        </form>
-
-      <div class="form-footer">
-        <p>Already a user?</p>
-        <a href="/signup" class="sign-up">Login</a>
-      </div>
+      </form>
     </div>
   </div>
- -->
+</section>
+<script>
+  function validatePasswords() {
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmpassword").value;
+    var passwordError = document.getElementById("passwordError");
+
+    if (password !== confirmPassword) {
+      passwordError.style.display = "block";
+      return false; // Prevent form submission
+    } else {
+      passwordError.style.display = "none";
+      return true; // Allow form submission
+    }
+  }
+</script>

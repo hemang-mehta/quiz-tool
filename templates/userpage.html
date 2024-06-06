@@ -1,68 +1,98 @@
-{% if user_auth is not none%} {% include 'navbar_after_login.html'%}
-{%else%} {% include 'navbar_before_login.html'%}
+{% if user_auth is not none %} 
+    {% include 'navbar_after_login.html' %}
+{% else %} 
+    {% include 'navbar_before_login.html' %}
 {% endif %}
 
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="static/css/up.css">
-        <title>User Page</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/up.css') }}">
+    <title>User Page</title>
+    
 </head>
 <body>
-        <div class="welcome">
-            <h1 style="color: black;">Welcome {{user_auth}}</h1>
-        </div>
-        <!-- To display ->
-                Number of tests given
-                Score achieved on each test
-                Average score
-                Button to give new test               
-        -->
-        <table>
-                {% set ns = namespace(num_tests=0) %}
-                {% set avgs = namespace(avg_score=0) %}
-                <div class="difficulty-scores">
-                    <span class="difficulty easy">easy</span>
-                    <span class="difficulty medium">medium</span>
-                    <span class="difficulty hard">hard</span>
-                  </div>
-                  
-                  {% for key, value in user_score_data.test_scores.items() %}
-                    <div class="score-data">
-                      <span class="score-key">{{ key }}</span>
-                      {% set ns.num_tests = ns.num_tests + (value | length) %}
-                      {% for item in value %}
-                            {{ item }}
-                            {% set avgs.avg_score = avgs.avg_score + item %}
-                      {% endfor %}
+    <div class="container">
+        <div class="card">
+            <div class="welcome">
+                <h1>Welcome {{ user_auth }}</h1>
+            </div>
+            <div class="difficulty-tabs">
+                <button type="button" class="tab-button active" id="easy" data-difficulty="easy">Easy</button>
+                <button type="button" class="tab-button" id="medium" data-difficulty="medium">Medium</button>
+                <button type="button" class="tab-button" id="hard" data-difficulty="hard">Hard</button>
+            </div>
+            <div class="scores">
+                {% set ns = namespace(num_tests=0, avg_score=0) %}
+                {% for key, value in user_score_data.test_scores.items() %}
+                    <div class="score-data {{ key }}" style="display: none;">
+                      
+                        {% set ns.num_tests = ns.num_tests + (value | length) %}
+                        <p>Number of {{key}} Tests  Given:{{value | length}}</p>
+                        {% for item in value %}
+                       
+                            <span>{{ item }}</span>
+                            {% set ns.avg_score = ns.avg_score + item %}
+                        {% endfor %}
                     </div>
-                  {% endfor %}
-                  
-                <tr>
-                    <td colspan="3">Number of tests given -> {{ ns.num_tests }}</td>
-                    {% set avgs.avg_score = avgs.avg_score/ns.num_tests %}
-                    <td>Average score -> {{avgs.avg_score}}</td>
-                </tr>
-            </table>
-            
-            
-        
-        <button id="startquiz">Give quiz</button>
-        <form method='POST'>
-            <div id="difficulty_level">
+                {% endfor %}
+                <div class="summary">
+                    <p>Number of tests given: {{ ns.num_tests }}</p>
+                    {% if ns.num_tests != 0 %}
+                        {% set ns.avg_score = ns.avg_score / ns.num_tests %}
+                        <p>Average score: {{ ns.avg_score }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <button onclick="toggleQuiz()"  id="startquiz">Give Quiz</button>
+            <form method="POST" id="difficulty_level" class="hidden">
                 <button type="submit" name="difficulty_level" value="Easy">Easy</button>
                 <button type="submit" name="difficulty_level" value="Medium">Medium</button>
                 <button type="submit" name="difficulty_level" value="Hard">Hard</button>
-            </div>
-        </form>
-        </body>
-        <script>
-                const first_btn = document.getElementById('startquiz')
-                const diff_lvl = document.getElementById('difficulty_level')
-                first_btn.addEventListener("click", function(){
-                        diff_lvl.style.display = "block";
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleQuiz() {
+            var difficultyLevelForm = document.getElementById("difficulty_level");
+            if (difficultyLevelForm.classList.contains("hidden")) {
+                difficultyLevelForm.classList.remove("hidden");
+            } else {
+                difficultyLevelForm.classList.add("hidden");
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.tab-button');
+            const scoreDataDivs = document.querySelectorAll('.score-data');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    buttons.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to the clicked button
+                    button.classList.add('active');
+
+                    // Get the difficulty from the clicked button
+                    const difficulty = button.getAttribute('data-difficulty');
+
+                    // Hide all score data divs
+                    scoreDataDivs.forEach(div => div.style.display = 'none');
+
+                    // Show the score data div for the selected difficulty
+                    const selectedDiv = document.querySelector(`.score-data.${difficulty}`);
+                    if (selectedDiv) {
+                        selectedDiv.style.display = 'block';
+                    }
                 });
-        </script>
+            });
+
+            // Trigger click on the active tab button to display the corresponding data on page load
+            document.querySelector('.tab-button.active').click();
+        });
+    </script>
 </body>
 </html>

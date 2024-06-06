@@ -1,5 +1,3 @@
-def a():
-    return 'Working'
 def scrape_questions(numlinks):
     from Web_scrapping import gfg_single_quiz_questions
     from pymongo import MongoClient
@@ -14,9 +12,8 @@ def scrape_questions(numlinks):
     quiz_links = db['GFG_links']
     questions_database = db['Questions_database']
 
-    def add_data():
-        questions_database.drop()
-        for i in gfg_ques:
+    def add_data(new_gfg_ques):
+        for i in new_gfg_ques:
             questions_database.insert_one(i)
         print("Data successfully added to mongodb.")
 
@@ -36,13 +33,14 @@ def scrape_questions(numlinks):
             if key == str(counter):
                 if value != None:
                     print(key, value)
-                    gfg_ques = gfg_single_quiz_questions.get_questions(value, gfg_ques)
+                    new_gfg_ques = gfg_single_quiz_questions.get_questions(value, gfg_ques)
         counter += 1
 
     print(f"New Counter = {counter}")
     file.seek(0)
     file.write(str(counter))
-    add_data()
+    questions_database.delete_many({})
+    add_data(new_gfg_ques)
     file.close()
 
     return True

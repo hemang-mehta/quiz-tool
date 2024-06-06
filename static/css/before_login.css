@@ -1,9 +1,86 @@
-.mr-auto,.mx-auto{
-    margin-right:auto!important
+.hover-dark:hover{
+    background-color: rgb(155, 155, 155);
+    color: azure;
 }
 
-.nav-item{
-    -ms-flex:1 1 auto;
-    flex:1 1 auto;
-    text-align:center;
+/* .hover-color:hover{
+    text-decoration: underline;
 }
+.underlines-ani {
+    display: underlines-ani;
+    position: relative;
+    text-decoration: none;
+  }
+  
+  .underlines-ani::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #333;
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+  
+  .underlines-ani:hover::after {
+    width: 100%;
+    left: 0;
+  } */
+
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  ul {
+    list-style: none;
+    padding-left: 0; /* Ensure no default padding for the ul */
+  }
+  
+  li {
+    margin-bottom: 10px; /* Add space between list items if needed */
+  }
+  
+  /* Styling for the link and the animation */
+  .underlines-ani {
+    display: underlines-ani;
+    position: relative;
+    text-decoration: none;
+  }
+  
+  .underlines-ani::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; /* Position the underline just below the text */
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #333; /* Underline color */
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+  
+  .underlines-ani:hover::after {
+    width: 100%;
+    left: 0;
+  }
+  
+  /* Additional styling for the link text */
+  .text-lg {
+    font-size: 1.125rem; /* 18px */
+  }
+  
+  .font-semibold {
+    font-weight: 600;
+  }
+  
+  .text-gray-800 {
+    color: #333;
+  }
+  
+  .hover-color:hover {
+    color: rgb(95, 91, 91); /* Change color on hover if desired */
+  }
+  

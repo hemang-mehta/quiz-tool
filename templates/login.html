@@ -1,42 +1,65 @@
 {% include 'navbar_before_login.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="static/css/login.css">
-  <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
-  <title>Login</title>
-</head>
-<body>
-  <div class="login-container">
-    <div class="login-form">
-      <h1>Login</h1>
+<section>
+  <div class="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+    <div class="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
+      <h2 class="text-center text-2xl font-bold leading-tight text-black">
+        Sign in to your account
+      </h2>
+      <p class="mt-2 text-center text-sm text-gray-600 ">
+        Don't have an account?
+        <a
+          href="/signup"
+          title=""
+          class="font-semibold text-black transition-all duration-200 hover:underline"
+        >
+          Create a free account
+        </a>
+      </p>
+      <form action="{{url_for('login')}}" method="POST" class="mt-8">
+        <div class="space-y-5">
+          <div>
+            <label for="name" class="text-base font-medium text-gray-900">
+              Name
+            </label>
+            <div class="mt-2">
+              <input
+                name="name"
+                class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                type="text"
+                placeholder="Name"
+              />
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center justify-between">
+              <label for="" class="text-base font-medium text-gray-900">
+                
+                Password
+              </label>
+            </div>
+            <div class="mt-2">
+              <input
+                class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                type="password"
+                placeholder="Password"
+                name="password"
+              />
 
-      <form action="{{ url_for('login') }}" method="POST">
-        <div class="input-field">
-          <label for="name">Name</label>
-          <input type="text" name="name" id="name" placeholder="Enter your name">
+              {% if error %}
+                <p class="error-message">{{ error }}</p>
+              {% endif %}
+            </div>
+          </div>
+          <div>
+            <button
+              type="submit"
+              class="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+            >
+              Login
+            </button>
+          </div>
         </div>
-
-        <div class="input-field">
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" placeholder="Enter your password">
-          <i class="fas fa-eye-slash"> </i>
-        </div>
-
-        {% if error %}
-          <p class="error-message">{{ error }}</p>
-        {% endif %}
-
-        <button type="submit" class="login-button">Login</button>
       </form>
-
-      <div class="form-footer">
-        <a href="#" class="forgot-password">Forgot Password?</a>
-        <a href="/signup" class="sign-up">Sign Up</a>
-      </div>
     </div>
   </div>
-</body>
-</html>
+</section>

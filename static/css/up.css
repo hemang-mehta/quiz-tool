@@ -1,69 +1,110 @@
-.welcome{
-    display:flex;
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Navbar should be fixed at the top */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.container {
+    display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 60px; /* Add margin to prevent overlap with fixed navbar */
 }
 
-.difficulty_Easy, .difficulty_Medium, .difficulty_Hard {
-    td.key{
-        font-size: 20px;
-    }
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 900px;
+    height:500px;
+    text-align: center;
 }
 
-.container{
-    display: block;
-    gap: 10px;
+.welcome h1 {
+    margin-bottom: 20px;
 }
 
-#name{
-    display: block;
+.difficulty-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
 }
 
-#view{
-    display: block;
+.tab-button {
+    background-color: #007BFF;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-#difficulty_level{
+.tab-button.active {
+    background-color: #0056b3;
+}
+
+.scores {
+    margin-bottom: 20px;
+}
+
+.score-data {
+    display: none;
+    margin-bottom: 10px;
+}
+
+.score-data span {
+    display: inline-block;
+    margin: 5px;
+    background-color: #e7e7e7;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.summary {
+    margin-top: 20px;
+}
+
+#startquiz {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#difficulty_level.hidden {
     display: none;
 }
 
-.difficulty-scores {
-    display: flex; /* Arrange keys in a row */
-    /* justify-content: space-between; Distribute keys evenly */
-    justify-content: center;
-    margin-bottom: 10px; /* Add some space below the keys */
+#difficulty_level button {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
 }
-
-.difficulty-scores span {
-    padding: 5px 10px; /* Add padding to keys */
-    border: 1px solid #ddd; /* Add a border */
-    border-radius: 5px; /* Add rounded corners */
-}
-
-.difficulty.easy {
-    margin: 40px;
-    background-color: #90EE90; /* Green for easy */
-}
-
-.difficulty.medium {
-      margin: 40px;
-      background-color: #FFFF99; /* Yellow for medium */
-    }
-    
-    .difficulty.hard {
-      margin: 40px;
-    background-color: #FFCC99; /* Orange for hard */
-  }
-  
-  .score-data {
-    display: flex;
-    align-items: center; /* Align key and value vertically */
-    margin-bottom: 5px; /* Add spacing between scores */
-  }
-  
-  .score-key {
-    font-weight: bold;
-    margin-right: 10px; /* Add space between key and value */
-  }
-  
-  /* Add styles for score-value and any additional elements */
-  
