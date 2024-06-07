@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/q_db.css">
     <title>Database</title>
 </head>
 <body>
@@ -16,45 +17,40 @@
                 <thead>
                     <th>Sr. No.</th>
                     <th>Question</th>
-                    <th>Code</th>
                     <th>Options</th>
                     <th>Correct Answer</th>
                     <th>Difficulty</th>
                 </thead>
                 {% for question in database %}
                     <tr>
-                        <td>
-                            {{ loop.index }}
-                        </td>
+                        <td>{{ loop.index }}</td>
                         <td>
                             {{ question.question }}
-                        </td>
-                        <td style="text-align: left; white-space: pre-wrap;">
-                            <pre>
-                                {{ question.code }}
-                            </pre>
+                            <br>
+                            {% if question.code is not none %}
+                            <div class="code-container">
+                                    <pre class="code">{{ question.code }}</pre>
+                                    </div>
+                                {% endif %}
                         </td>
                         <td>
                             {% for option in question.options %}
                                 <p>{{ option }}</p>
-                            {%endfor%}
+                            {% endfor %}
                         </td>
+                        <td>{{ question.correct_ans}}</td>
                         <td>
-                            {{ question.correct_ans}}
-                        </td>
-                        <td>
-                                <p class="card-text">
+                            <p class="card-text">
                                 <select name="{{ question._id }}">
                                     {% for option in range(1,4) %}
-                                    {% if option == question.difficulty %}
-                                    <option value="{{ option }}" selected>{{ option }}</option>
-                                    {% else %}
-                                    <option value="{{ option }}">{{ option }}</option>
-                                    {%endif%}
+                                        {% if option == question.difficulty %}
+                                            <option value="{{ option }}" selected>{{ option }}</option>
+                                        {% else %}
+                                            <option value="{{ option }}">{{ option }}</option>
+                                        {% endif %}
                                     {% endfor %}
                                 </select>
                             </p>
-                           
                         </td>
                     </tr>
                 {% endfor %}

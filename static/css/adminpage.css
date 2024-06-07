@@ -1,9 +1,93 @@
-.Welcome{
+.Welcome {
     display: flex;
     justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    text-align: center;
 }
 
-button{
-    display:inline-flex;
-    justify-content: center;
+.Welcome h1 {
+    font-size: 90px;
+    font-weight: 700;
 }
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px; /* Adds space between rows */
+}
+
+form button {
+    display: inline-flex;
+    margin: 0 10px; /* Adds space between buttons */
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+form button[type="submit"] {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+form button[type="button"] {
+    background-color: #008CBA; /* Blue */
+    color: white;
+}
+
+form button[type="submit"]:hover {
+    background-color: #45a049; /* Darker green */
+}
+
+form button[type="button"]:hover {
+    background-color: #005f73; /* Darker blue */
+}
+
+form button#submit {
+    background-color: #f0ad4e; /* Orange */
+    color: white;
+}
+
+form button#submit:hover {
+    background-color: #ec971f; /* Darker orange */
+}
+
+#numlinks {
+    display: none;
+    text-align: center;
+    input{
+        border: solid black;
+        border-radius: 5px;
+    }
+}
+
+#wait {
+    text-align: center;
+    justify-content: center;
+    padding-inline: 10px;
+    vertical-align: middle;
+    font-weight: bold;
+    color: red;
+}
+
+.loading {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite; /* Spin animation */
+    margin-top: 10px; /* Adjust margin as needed */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+

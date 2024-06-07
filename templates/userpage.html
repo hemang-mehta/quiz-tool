@@ -18,32 +18,33 @@
         <div class="card">
             <div class="welcome">
                 <h1>Welcome {{ user_auth }}</h1>
-            </div>
-            <div class="difficulty-tabs">
-                <button type="button" class="tab-button active" id="easy" data-difficulty="easy">Easy</button>
-                <button type="button" class="tab-button" id="medium" data-difficulty="medium">Medium</button>
-                <button type="button" class="tab-button" id="hard" data-difficulty="hard">Hard</button>
-            </div>
-            <div class="scores">
-                {% set ns = namespace(num_tests=0, avg_score=0) %}
-                {% for key, value in user_score_data.test_scores.items() %}
-                    <div class="score-data {{ key }}" style="display: none;">
-                      
-                        {% set ns.num_tests = ns.num_tests + (value | length) %}
-                        <p>Number of {{key}} Tests  Given:{{value | length}}</p>
+                </div>
+            <div class="pstats">
+                <h2>Personal stats</h2>
+                <div class="difficulty-tabs">
+                    <button type="button" class="tab-button" id="easy" data-difficulty="easy">Easy</button>
+                    <button type="button" class="tab-button" id="medium" data-difficulty="medium">Medium</button>
+                    <button type="button" class="tab-button" id="hard" data-difficulty="hard">Hard</button>
+                </div>
+                <div class="scores">
+                    {% set ns = namespace(num_tests=0, avg_score=0) %}
+                    {% for key, value in user_score_data.test_scores.items() %}
+                        <div class="score-data {{ key }}" style="display: none;">
+                        
+                            {% set ns.num_tests = ns.num_tests + (value | length) %}
+                            <p>Number of {{key}} Tests  Given:{{value | length}}</p>
+                        </div>
                         {% for item in value %}
-                       
-                            <span>{{ item }}</span>
                             {% set ns.avg_score = ns.avg_score + item %}
                         {% endfor %}
+                    {% endfor %}
+                    <div class="summary">
+                        <p>Total tests given: {{ ns.num_tests }}</p>
+                        {% if ns.num_tests != 0 %}
+                            {% set ns.avg_score = ns.avg_score / ns.num_tests %}
+                            <p>Average score: {{ ns.avg_score | round(2) }}</p>
+                        {% endif %}
                     </div>
-                {% endfor %}
-                <div class="summary">
-                    <p>Number of tests given: {{ ns.num_tests }}</p>
-                    {% if ns.num_tests != 0 %}
-                        {% set ns.avg_score = ns.avg_score / ns.num_tests %}
-                        <p>Average score: {{ ns.avg_score }}</p>
-                    {% endif %}
                 </div>
             </div>
             <button onclick="toggleQuiz()"  id="startquiz">Give Quiz</button>

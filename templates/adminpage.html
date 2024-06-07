@@ -8,11 +8,6 @@
     <title>Admin Page</title>
 </head>
 <body>
-    <!-- 
-        Button - Change questions ----------------------------------#> DONE
-        Button - Look at user performance
-        Button - Get new questions
-     -->
     <div class="Welcome">
         <h1>Welcome admin!</h1>
     </div>
@@ -24,7 +19,10 @@
             <p>Enter number of links to scrape to get new questions:</p>
             <input type="number" name="numlinks">
             <button type="submit" name="button_clicked" id="submit" value="GNQ">Submit</button>
-            <div id="wait" style="display: none;"><p>Please Wait!!!</p></div>
+            <div id="wait" style="display: none;">
+                <p>Please  Wait!!!</p>
+                <div class="loading"></div>
+            </div>
         </div>
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
@@ -50,7 +48,7 @@
     });
 
     submit.addEventListener("click", function(){
-        waiting.style.display = "block";
+        waiting.style.display = "flex";
     })
 </script>
 </html>
