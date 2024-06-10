@@ -147,7 +147,11 @@ def quizpage():
         if request.method == 'GET':
             diff_lvl = request.args.get('difficulty_lvl')
             diff_dict = {'Easy': 1, 'Medium': 2, 'Hard': 3}
-            ques_data = list(q_db.find({'difficulty': diff_dict[diff_lvl]}).limit(20))
+            pipeline = [
+    {'$match': {'difficulty': diff_dict[diff_lvl]}},
+    {'$sample': {'size': 20}}
+]
+            ques_data = list(q_db.aggregate(pipeline))
             return render_template('quizpage.html', userid = user, ques_data = ques_data, difficulty_level = diff_lvl)
         if request.method == 'POST':
             user_answers = request.form.to_dict()
