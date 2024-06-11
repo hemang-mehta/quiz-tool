@@ -24,14 +24,6 @@ The main languages used for creating these webpages were HTML and CSS. To handle
 - Admin account - 
 The admin has access to the database questions that are displayed on a webpage where the admin can change their difficulty level as required. This will directly make changes to the database. The admin is also provided with a button to get new questions from the links or scrape the questions currently present on the live website.
 
-## Model Testing 
-
-The testing script loads the trained model and evaluates it on new images from the CIFAR-10 dataset. Steps include:
-
-  1. Loading the Trained Model: Loading the model parameters saved in the "cnn.pth" file.
-  2. Preprocessing: Preprocessing the input images to match the model's expected input.
-  3. Prediction: Using the model to predict the class of the input images.
-
 ## Flask Framework 
 
 Flask is the main framework used in this project for building the website and handling the database. It provides several important functions and classes:
