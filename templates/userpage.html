@@ -1,8 +1,10 @@
-{% if user_auth is not none %} 
-    {% include 'navbar_after_login.html' %}
+{% if userid is not none %} 
+    {% set context = {'userid': userid, 'surname': surname} %}
+    {% include 'navbar_after_login.html' with context %}
 {% else %} 
     {% include 'navbar_before_login.html' %}
 {% endif %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,83 +19,21 @@
     <div class="container">
         <div class="card">
             <div class="welcome">
-                <h1>Welcome {{ user_auth }}</h1>
+                <h1>Select topics</h1>
                 </div>
-            <div class="pstats">
-                <h2>Personal stats</h2>
-                <div class="difficulty-tabs">
-                    <button type="button" class="tab-button" id="easy" data-difficulty="easy">Easy</button>
-                    <button type="button" class="tab-button" id="medium" data-difficulty="medium">Medium</button>
-                    <button type="button" class="tab-button" id="hard" data-difficulty="hard">Hard</button>
-                </div>
-                <div class="scores">
-                    {% set ns = namespace(num_tests=0, avg_score=0) %}
-                    {% for key, value in user_score_data.test_scores.items() %}
-                        <div class="score-data {{ key }}" style="display: none;">
-                        
-                            {% set ns.num_tests = ns.num_tests + (value | length) %}
-                            <p>Number of {{key}} Tests  Given:{{value | length}}</p>
-                        </div>
-                        {% for item in value %}
-                            {% set ns.avg_score = ns.avg_score + item %}
-                        {% endfor %}
-                    {% endfor %}
-                    <div class="summary">
-                        <p>Total tests given: {{ ns.num_tests }}</p>
-                        {% if ns.num_tests != 0 %}
-                            {% set ns.avg_score = ns.avg_score / ns.num_tests %}
-                            <p>Average score: {{ ns.avg_score | round(2) }}</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <button onclick="toggleQuiz()"  id="startquiz">Give Quiz</button>
-            <form method="POST" id="difficulty_level" class="hidden">
-                <button type="submit" name="difficulty_level" value="Easy">Easy</button>
-                <button type="submit" name="difficulty_level" value="Medium">Medium</button>
-                <button type="submit" name="difficulty_level" value="Hard">Hard</button>
-            </form>
+                <form method="POST" id="topics">
+                    <input type="checkbox" name="topics" id="dotnet" value="dotnet">
+                    <label for="dotnet">DotNet</label><br>
+                    <input type="checkbox" name="topics" id="react" value="react">
+                    <label for="react">React</label><br>
+                    <input type="checkbox" name="topics" id="python" value="python">
+                    <label for="python">Python</label><br>
+                    <input type="checkbox" name="topics" id="fullstack" value="Fullstack">
+                    <label for="fullstack">Full Stack</label><br>
+                    <button type="submit" id="startquiz">Start Quiz</button>
+                </form>
+                
         </div>
     </div>
-
-    <script>
-        function toggleQuiz() {
-            var difficultyLevelForm = document.getElementById("difficulty_level");
-            if (difficultyLevelForm.classList.contains("hidden")) {
-                difficultyLevelForm.classList.remove("hidden");
-            } else {
-                difficultyLevelForm.classList.add("hidden");
-            }
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-            const buttons = document.querySelectorAll('.tab-button');
-            const scoreDataDivs = document.querySelectorAll('.score-data');
-
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    buttons.forEach(btn => btn.classList.remove('active'));
-
-                    // Add active class to the clicked button
-                    button.classList.add('active');
-
-                    // Get the difficulty from the clicked button
-                    const difficulty = button.getAttribute('data-difficulty');
-
-                    // Hide all score data divs
-                    scoreDataDivs.forEach(div => div.style.display = 'none');
-
-                    // Show the score data div for the selected difficulty
-                    const selectedDiv = document.querySelector(`.score-data.${difficulty}`);
-                    if (selectedDiv) {
-                        selectedDiv.style.display = 'block';
-                    }
-                });
-            });
-
-            // Trigger click on the active tab button to display the corresponding data on page load
-            document.querySelector('.tab-button.active').click();
-        });
-    </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-{% if user_auth is not none%} {% include 'navbar_after_login.html'%}
+{% if userid is not none%} {% include 'navbar_after_login.html'%}
 {%else%} {% include 'navbar_before_login.html'%}
 {% endif %}
 <!DOCTYPE html>
@@ -10,41 +10,37 @@
     <title>Quiz</title>
 </head>
 <body>
-    <form id="quizform" method="POST" action="quizpage">
-    <table>
-        <thead>
-            <div class="h1-container">
-                <h1>Quiz</h1>
-            </div>
-        </thead>
-        <tbody>
-            {% for record in ques_data %}
-                <div class="card-container">
-                    <div class="card-body">
-                        <p class="card-title">
-                            <b>{{ loop.index }}.</b> 
-                            <pre class="question">{{ record.question }}</pre>
-                        </p>
-                        <div class="code">
-                            {% if record.code is not none%}
-                                <pre class="code">{{ record.code | safe }}</pre>
-                            {% endif %}
-                        </div>
-                        <p class="card-text">
-                            <select name="{{ record._id }}">
-                                {% for option in record.options %}
-                                    <option value="{{ loop.index }}">{{ option }}</option>
-                                {% endfor %}
-                            </select>
-                        </p>
-                    </div>
-                </div>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="button-container">
-        <button type="submit" class="button">Submit</button>
+    <div class="h1-container">
+        <h1>Quiz</h1>
     </div>
+    <form id="quizform" method="POST" action="quizpage">
+        <h1>Question {{ current_index + 1 }} / {{ total_questions }}</h1>
+        
+        <p>{{ ques_data.question }}</p>
+        
+        {% for option in ques_data.options %}
+            <label>
+                <input type="radio" name="answer" value="{{ option }}" {% if option == ans %} checked {% endif %}>
+                {{ option }}
+            </label><br>
+        {% endfor %}
+        {% if error %}
+                <p class="error-message">{{ error }}</p>
+        {% endif %}
+        {% if current_index != 0 %}
+            <button type="submit" name="button_clicked" value="previous">Previous</button>
+        {% endif %}
+        
+        {% if current_index == total_questions - 1 %}
+            <button type="submit" name="button_clicked" value="submit">Submit</button>
+        {% else %}
+            <button type="submit" name="button_clicked" value="next">Next</button>
+        {% endif %}
+    </form>
+
+</body>
+</html>
+
 </form>
 </body>
 </html>

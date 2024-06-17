@@ -41,67 +41,6 @@ body {
     height:530px;
     text-align: center;
 }
-
-.welcome h1 {
-    font-weight: 600;
-    font-size: 80px;
-}
-
-.pstats{
-    background-color: #f2f2f2;
-}
-
-.pstats h2 {
-    font-weight: 500;
-    font-size: 50px;
-    margin-bottom: 10px;
-}
-
-.difficulty-tabs {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-.tab-button {
-    background-color: #2cbb5d1f;
-    border: none;
-    color: rgb(45, 104, 181);
-    font-weight: 600;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.tab-button.active {
-    background-color: rgb(146, 233, 182);
-}
-
-.scores {
-    margin-bottom: 20px;
-}
-
-.score-data {
-    display: none;
-    margin-bottom: 10px;
-}
-
-.score-data span {
-    display: inline-block;
-    margin: 5px;
-    background-color: #e7e7e7;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-.summary {
-    margin-top: 20px;
-    margin-left: 10px;
-    text-align: left;
-    font-weight: 500;
-    font-size: 20px;
-}
-
 #startquiz {
     background-color: #28a745;
     color: white;
@@ -109,18 +48,4 @@ body {
     padding: 10px;
     cursor: pointer;
     border-radius: 5px;
-}
-
-#difficulty_level.hidden {
-    display: none;
-}
-
-#difficulty_level button {
-    background-color: #17a2b8;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 5px;
 }
