@@ -4,8 +4,6 @@ Welcome to Quiz-tool! This project creates a website where users can signup/logi
 
 ## Overview 
 
-This project is aimed at building and evaluating a CNN model for image classification. The CIFAR-10 dataset, consisting of 10 different classes of images, is used for training and testing the model.
-
 This project is aimed at building a website that can generate quizzes for students on the subject of computer science. The questions are scraped from live websites to avoid the overuse and aging away of questions.
 
 ### Questions 
