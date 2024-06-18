@@ -1,5 +1,6 @@
-from bson import ObjectId, json_util
+from bson import ObjectId
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+import datetime
 from pymongo import MongoClient
 from Web_scrapping import gfg_ques_retrieval
 
@@ -78,7 +79,7 @@ def signup():
             error = "You already have an account"
         else:
             User_login_data.insert_one({'name':name, 'surname':surname, 'password':password, 'emailid': emailid, 'experience': exp})
-            User_score_data.insert_one({'emailid': emailid, 'num_tests': 0, 'test_data':[], 'scores':[]})
+            User_score_data.insert_one({'emailid': emailid, 'num_tests': 0, 'test_data':[], 'scores':[], 'date': [], 'time_taken': []})
         if error == None:
             session['user'] = name
             session['emailid'] = emailid
@@ -94,35 +95,31 @@ def adminpage():
     button_clicked = request.form['button_clicked']
     if button_clicked == 'QDB':
       return redirect(url_for('qdb'))
-    elif button_clicked == 'GNQ':
-      num_links = request.form['numlinks']
-      gfg_ques_retrieval.scrape_questions(num_links)
-      flash('Website scrapped successfuly!!!', 'info')
-      return render_template('adminpage.html')
+    # elif button_clicked == 'GNQ':
+    #   num_links = request.form['numlinks']
+    #   gfg_ques_retrieval.scrape_questions(num_links)
+    #   flash('Website scrapped successfuly!!!', 'info')
+    #   return render_template('adminpage.html', userid = session['user'], surname = session['surname'])
+    elif button_clicked == 'US':
+        return redirect(url_for('userstats'))
     else:
-      return render_template('adminpage.html')
+      return render_template('adminpage.html', userid = session['user'], surname = session['surname'])
   if session['user'] == 'admin':
-    return render_template('adminpage.html')
+    return render_template('adminpage.html', userid = session['user'], surname = session['surname'])
   else:
       return redirect(url_for('logout'))
 
+@app.route('/userstats', methods=['GET', 'POST'])
+def userstats():
+    if request.method=='GET':
+        user_data = list(User_score_data.find({}))
+        return render_template('userstats.html', userid = session['user'], surname = session['surname'], u_data = user_data)
 
 @app.route('/qdb', methods=['GET', 'POST'])
 def qdb():
     if session['user'] == 'admin':
         q = list(q_db.find({}))
-        if request.method == 'POST':
-            button_clicked = request.form['submit']
-            if button_clicked=='savechanges':
-                new_diff_lvl = request.form.to_dict()
-                new_diff_lvl.pop('submit', None)
-                for id, d_lvl in new_diff_lvl.items():
-                    q_db.update_one({'_id': ObjectId(id)}, {'$set': {'difficulty': int(d_lvl)}})
-                flash('Questions updated successfuly!!!', 'info')
-                return redirect(url_for('adminpage'))
-            else:
-                return redirect(url_for('adminpage'))
-        return render_template('question_db.html', database = q)
+        return render_template('question_db.html', database = q, userid = session['user'], surname = session['surname'])
     else:
         return redirect(url_for('signup'))
 
@@ -153,6 +150,9 @@ def userpage():
         surname = session['surname']
         if user == "admin":
             return redirect(url_for('adminpage'))
+        else:
+            if User_curr_score.find_one({'emailid': session['emailid']}):
+                return render_template('userpage.html', test = True, userid = user, surname = surname)
         if request.method == 'POST':
             topics = request.form.getlist('topics')
             session['topics'] = topics
@@ -173,6 +173,7 @@ def userpage():
             for key, value in ques_data.items():
                 q_data[key] = [int(list(item.keys())[0]) for item in value]
             session['ques_data'] = q_data
+            # print('In userpage ques_data -> {}'.format(session['ques_data']))
             def convert_keys_to_strings(d):
                 if isinstance(d, dict):
                     return {str(k): convert_keys_to_strings(v) for k, v in d.items()}
@@ -182,10 +183,16 @@ def userpage():
                     return d
             ques_data = convert_keys_to_strings(ques_data)
             emailid = User_login_data.find_one({'name': session['user']})['emailid']
-            User_curr_score.insert_one({'emailid': emailid, 'test_state': False, 'questions':ques_data})
+            User_curr_score.insert_one({'emailid': emailid,
+                                        'test_state': False,
+                                        'questions':ques_data,
+                                        'start_date': datetime.datetime.now().strftime("%x"),
+                                        'start_time': datetime.datetime.now()})
             User_score_data.update_one(filter={'emailid':emailid}, update={'$inc':{'num_tests':1}, '$push':{'test_data':ques_data}})
             session['current_index'] = 0
             session['total_questions'] = total_questions
+            # print(f"Start date -> {datetime.datetime.now().strftime("%x")}")
+            # print(f"Start time -> {datetime.datetime.now()}")
             return redirect(url_for('quizpage'))
         return render_template('userpage.html', surname = surname, userid = user)
     else:
@@ -198,13 +205,21 @@ def quizpage():
         surname = session['surname']
         if request.method == 'GET':
             # Finding the quesiton from Topic_wise_questions using category and question number
+            topic = session['topics'][int(session['current_index']/3)]
+            q_no = session['ques_data'][session['topics'][int(session['current_index']/3)]][session['current_index']%3]
             ques_data = q_db.find_one({'category': session['topics'][0], 'q_no': session['ques_data'][session['topics'][0]][0]})
+            ans = User_curr_score.find_one({'emailid': session['emailid']})['questions'][topic][session['current_index']%3][str(q_no)]
+            # print('topics -> {}'.format(session['topics'][0]))
+            # print('In quizpage Ques_data -> {}'.format(session['ques_data']))
+            # print('Q_NO -> {}'.format(session['ques_data'][session['topics'][0]][0]))
+            # print(ques_data)
             return render_template('quizpage.html',
                                    surname = surname,
                                    userid = user,
                                    ques_data = ques_data,
                                    total_questions=session['total_questions'],
-                                   current_index = session['current_index'])
+                                   current_index = session['current_index'],
+                                   ans = ans)
         
         if request.method == 'POST':
             button_clicked = request.form['button_clicked']
@@ -218,6 +233,8 @@ def quizpage():
                 if button_clicked == 'submit':
                     #Update the last question...
                     new_data = User_curr_score.find_one({'emailid': session['emailid']})['questions']
+                    start_date = User_curr_score.find_one({'emailid': session['emailid']})['start_date']
+                    time_taken = (datetime.datetime.now() - User_curr_score.find_one({'emailid': session['emailid']})['start_time']).total_seconds()
                     User_curr_score.delete_one({'emailid': session['emailid']})
                     # Get score
                     score = 0
@@ -228,7 +245,7 @@ def quizpage():
                                     score += 1
 
                     User_score_data.update_one(filter={'emailid': session['emailid']}, update={'$set': {f'test_data.{len(User_score_data.find_one({'emailid':session['emailid']})['test_data'])-1}': new_data},
-                                                                                               '$push':{'scores': score}})
+                                                                                               '$push':{'scores': score, 'date': start_date, 'time_taken': time_taken}})
                     return redirect(url_for('userpage'))
                 elif button_clicked=='previous':
                     session['current_index'] -= 1
@@ -237,7 +254,7 @@ def quizpage():
                 topic = session['topics'][int(session['current_index']/3)]
                 q_no = session['ques_data'][session['topics'][int(session['current_index']/3)]][session['current_index']%3]
                 ques_data = q_db.find_one({'category': topic, 'q_no': q_no})
-                ans = User_curr_score.find_one({'emailid': session['emailid']})['questions'][topic][session['current_index']][str(q_no)]
+                ans = User_curr_score.find_one({'emailid': session['emailid']})['questions'][topic][session['current_index']%3][str(q_no)]
                 return render_template('quizpage.html',
                                 surname = surname,
                                 userid = user,
@@ -252,8 +269,7 @@ def quizpage():
                     error = None
                 topic = session['topics'][int(session['current_index']/3)]
                 q_no = session['ques_data'][session['topics'][int(session['current_index']/3)]][session['current_index']%3]
-                ans = User_curr_score.find_one({'emailid': session['emailid']})['questions'][topic][session['current_index']][str(q_no)]
-                print(ans)
+                ans = User_curr_score.find_one({'emailid': session['emailid']})['questions'][topic][session['current_index']%3][str(q_no)]
                 topic = session['topics'][int(session['current_index']/3)]
                 q_no = session['ques_data'][session['topics'][int(session['current_index']/3)]][session['current_index']%3]
                 ques_data = q_db.find_one({'category': topic, 'q_no': q_no})
@@ -268,10 +284,25 @@ def quizpage():
     else:
         return redirect(url_for('login'))
 
+@app.route('/pendingtest', methods=['POST'])
+def pendingtest():
+    if request.method == 'POST':
+        temp_ques_data = {}
+        session['topics'] = list(User_curr_score.find_one({'emailid': session['emailid']})['questions'].keys())
+        for key, value in User_curr_score.find_one({'emailid': session['emailid']})['questions'].items():
+            temp_ques_data[key] = [int(list(v.keys())[0]) for v in value]
+        session['ques_data'] = temp_ques_data
+        session['current_index'] = 0
+        return redirect(url_for('quizpage'))
+
 @app.route('/logout')
 def logout():
     session.pop("user", None)
     session.pop("surname", None)
+    session.pop("ques_data", None)
+    session.pop("current_index", None)
+    session.pop("topics", None)
+    session.pop("emailid", None)
     return redirect(url_for('login'))
 
 if __name__ == "__main__":

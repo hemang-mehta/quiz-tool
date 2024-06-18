@@ -8,15 +8,15 @@ from pymongo import MongoClient
 
 # List of links to process
 links = [
-    'https://www.freetimelearning.com/online-quiz/dotnet-mcq.php',
-    'https://www.freetimelearning.com/online-quiz/python-quiz.php',
-    'https://www.freetimelearning.com/online-quiz/react-js-quiz.php',
+    'https://www.freetimelearning.com/online-quiz/postgresql-quiz.php',
+    'https://www.freetimelearning.com/online-quiz/mysql-quiz.php',
+    'https://www.freetimelearning.com/online-quiz/mongodb-quiz.php',
+    'https://www.freetimelearning.com/online-quiz/flask-quiz.php',
+    'https://www.freetimelearning.com/online-quiz/node-js-quiz.php',
     'https://www.freetimelearning.com/online-quiz/javascript-quiz.php',
-    # 'https://www.freetimelearning.com/online-quiz/node-js-quiz.php',
-    # 'https://www.freetimelearning.com/online-quiz/flask-quiz.php',
-    # 'https://www.freetimelearning.com/online-quiz/mongodb-quiz.php',
-    # 'https://www.freetimelearning.com/online-quiz/mysql-quiz.php',
-    # 'https://www.freetimelearning.com/online-quiz/postgresql-quiz.php'
+    'https://www.freetimelearning.com/online-quiz/python-quiz.php',
+    'https://www.freetimelearning.com/online-quiz/dotnet-mcq.php',
+    'https://www.freetimelearning.com/online-quiz/react-js-quiz.php'
 ]
 
 # MongoDB client setup
@@ -48,38 +48,31 @@ def extract_questions_and_answers(url):
     for j in range(len(ques_card)):
         a = ques_card[j].find_element(By.CSS_SELECTOR, 'div.question')
         q_no = int(a.find_element(By.CLASS_NAME, 'question-left').text.split(' ')[0])
-        try:
-            question = a.find_element(By.CSS_SELECTOR, '.question-right a').text
-        except Exception:
-            try:
-                question = a.find_element(By.CSS_SELECTOR, 'div.question-right.quiz_ta_question_color').text
-            except:
-                try:
-                    question = a.find_element(By.CSS_SELECTOR, 'div.question-right').text
-                except:
-                    question = ''
+        question = a.find_element(By.CSS_SELECTOR, 'div.question-right').text
 
-        print(f"{q_no}")
+        print(f"{q_no}", end=' ')
 
         option_card = ques_ans[j].find_elements(By.CSS_SELECTOR, '.quiz-ans-margin')
-        ans_container = ques_ans[j].find_element(By.CLASS_NAME, 'show_gk_ans')
-        p_class = ans_container.find_element(By.CLASS_NAME, 'bold')
-        span_class = p_class.find_element(By.CLASS_NAME, 'ans-text-color').text
-        try:
-                or_ans = ans_container.find_element(By.TAG_NAME, 'div').text
-                span_class = or_ans if len(or_ans)>len(span_class) else span_class
-        except:
-            continue
-        # print("Options:")
         option_text = []
         for i, option in enumerate(option_card, start=1):
             if option.text != '':
                 option_text.append(option.text.strip())
                 # print(f"{i}. {option.text.strip()}")
+            
+        ans_container = ques_ans[j].find_element(By.CLASS_NAME, 'show_gk_ans').text[19:]
+        
+        # p_class = ans_container.find_element(By.CLASS_NAME, 'bold')
+        # span_class = p_class.find_element(By.CLASS_NAME, 'ans-text-color').text
+        # try:
+        #         or_ans = ans_container.find_element(By.TAG_NAME, 'div').text
+        #         span_class = or_ans if len(or_ans)>len(span_class) else span_class
+        # except:
+        #     continue
+        # # print("Options:")
 
-        # print(f"Correct answer: {span_class}")
-        # print()
-        question_list.append({'category': category, 'question': question, 'options': option_text, 'answer':span_class, 'q_no': q_no})
+        # # print(f"Correct answer: {span_class}")
+        # # print()
+        question_list.append({'category': category, 'question': question, 'options': option_text, 'answer':ans_container, 'q_no': q_no})
         
     return question_list
 
@@ -96,11 +89,11 @@ def add_to_database(question_list, link):
 #     add_to_database(question_list, link)
 #     print("-" * 80)
 #     break
-link = links[3]
+link = links[0]
 question_list = extract_questions_and_answers(link)
-for i in question_list:
-    print(i)
-    print()
-# add_to_database(question_list, link)
+# for i in question_list:
+    # print(i)
+    # print()
+add_to_database(question_list, link)
 # Close the WebDriver
 driver.quit()

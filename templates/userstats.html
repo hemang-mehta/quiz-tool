@@ -1,0 +1,52 @@
+{% include 'navbar_after_login.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Stats</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px; /* Adjust the padding value as needed */
+        }
+    </style>
+</head>
+<body>
+    <h1 style="font-size: 50px; justify-content: center; display: flex;">
+        User Stats
+    </h1>
+    <table>
+        <thead>
+            <th>Username</th>
+            <th>Quiz No.</th>
+            <th>Topics</th>
+            <th>Score</th>
+            <th>Date</th>
+            <th>Time spent</th>
+        </thead>
+        <tbody>
+            {% for record in u_data %}
+                {% for test_index in range(record['num_tests']) %}
+                    <tr>
+                        {% if test_index == 0 %}
+                            <td>{{ record.emailid }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        <td>{{ test_index + 1 }}</td>
+                        <td>{{ record.test_data[test_index].keys() | join(', ') }}</td>
+                        <td>{{ record.scores[test_index] }}</td>
+                        <td>{{record.date[test_index]}}</td>
+                        <td>{{record.time_taken[test_index] | round(1)}}s</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -19,46 +19,26 @@
                     <th>Question</th>
                     <th>Options</th>
                     <th>Correct Answer</th>
-                    <th>Difficulty</th>
+                    <th>Topic</th>
                 </thead>
                 {% for question in database %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>
-                            {{ question.question }}
-                            <br>
-                            {% if question.code is not none %}
-                            <div class="code-container">
-                                    <pre class="code">{{ question.code }}</pre>
-                                    </div>
-                                {% endif %}
+                            {{ question.question }}                            
                         </td>
                         <td>
                             {% for option in question.options %}
                                 <p>{{ option }}</p>
                             {% endfor %}
                         </td>
-                        <td>{{ question.correct_ans}}</td>
+                        <td>{{ question.answer}}</td>
                         <td>
-                            <p class="card-text">
-                                <select name="{{ question._id }}">
-                                    {% for option in range(1,4) %}
-                                        {% if option == question.difficulty %}
-                                            <option value="{{ option }}" selected>{{ option }}</option>
-                                        {% else %}
-                                            <option value="{{ option }}">{{ option }}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                </select>
-                            </p>
+                            {{question.category}}
                         </td>
                     </tr>
                 {% endfor %}
             </table>
-            <div class="button-container">
-                <button type="submit" name="submit" class="submit" value="savechanges">Save Changes</button>
-                <button type="submit" name="submit" class="submit" value="goback">Go back</button>
-            </div>
         </div>
     </form>
 </body>

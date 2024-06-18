@@ -18,8 +18,14 @@
 <body>
     <div class="container">
         <div class="card">
-            <div class="welcome">
-                <h1>Select topics</h1>
+            {% if test %}
+            <form method="POST" id="contTest" action="/pendingtest">
+                <p>Complete the pending test first...</p>
+                <button type="submit" name="contTest" value="contTest">Continue</button>
+            </form>
+            {% else %}
+                <div class="welcome">
+                    <h1>Select topics</h1>
                 </div>
                 <form method="POST" id="topics">
                     <input type="checkbox" name="topics" id="dotnet" value="dotnet">
@@ -28,11 +34,19 @@
                     <label for="react">React</label><br>
                     <input type="checkbox" name="topics" id="python" value="python">
                     <label for="python">Python</label><br>
-                    <input type="checkbox" name="topics" id="fullstack" value="Fullstack">
-                    <label for="fullstack">Full Stack</label><br>
+                    <input type="checkbox" name="topics" id="javascript" value="javascript">
+                    <label for="javascript">Javascript</label><br>
+                    <input type="checkbox" name="topics" id="node" value="node">
+                    <label for="node">Node JS</label><br>
+                    <input type="checkbox" name="topics" id="mongodb" value="mongodb">
+                    <label for="mongodb">Mongodb</label><br>
+                    <input type="checkbox" name="topics" id="mysql" value="mysql">
+                    <label for="mysql">Mysql</label><br>
+                    <input type="checkbox" name="topics" id="postgresql" value="postgresql">
+                    <label for="postgresql">Postgresql</label><br>
                     <button type="submit" id="startquiz">Start Quiz</button>
                 </form>
-                
+                {% endif %}
         </div>
     </div>
 </body>
