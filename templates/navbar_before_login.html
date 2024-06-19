@@ -1,48 +1,49 @@
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-<link href="static/css/before_login.css" rel="stylesheet">
-<div class="relative w-full bg-white">
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
-    <div class="inline-flex items-center space-x-2">
-      <span class="font-bold" style="font-size: 30px; text-shadow: 1.5px 0 rgb(151, 151, 151);">Quiz-Tool</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <style>
+        .gradient-text {
+          background: linear-gradient(135deg, #475edf, yellow);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-size: 40px;
+          font-weight: bold;
+        }
+      </style>
+</head>
+<body>
+    <div class="w-full bg-white font-bold">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
+            <div class="inline-flex items-center space-x-2">
+                <img class="h-10 w-10" src="static/images/qt-icon.avif">
+                <span class="gradient-text">Quiz-Tool</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <ul class="hidden lg:flex space-x-5">
+                    <li>
+                        <a href="/" class="inline-flex underlines-ani items-center text-xl font-semibold text-gray-800 hover-color">Home</a>
+                    </li>
+                    <li>
+                        <a href="/aboutus" class="inline-flex underlines-ani items-center text-xl font-semibold text-gray-800 hover-color">About Us</a>
+                    </li>
+                    <li>
+                        <a href="/contactus" class="inline-flex underlines-ani items-center text-xl font-semibold text-gray-800 hover-color">Contact Us</a>
+                    </li>
+                </ul>
+                <div class="flex">
+                    <button type="button" class="rounded-md bg-transparent px-3 py-2 text-xl font-semibold text-black">
+                        <a href="/signup">Sign Up</a>
+                    </button>
+                    <button type="button" class="hover-dark px-3 py-2 text-xl font-semibold text-black">
+                        <a href="/login">Log In</a>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="hidden grow items-start lg:flex">
-      <ul class="ml-12 inline-flex space-x-8">
-        <li>
-          <a href="/" class="inline-flex underlines-ani items-center text-lg font-semibold text-gray-800 hover-color">
-            Home
-          </a>
-        </li>
-        <li>
-          <a
-            href="/aboutus"
-            class="inline-flex underlines-ani items-center text-lg font-semibold text-gray-800 hover-color"
-          >
-            About Us
-          </a>
-        </li>
-        <li>
-          <a
-            href="/contactus"
-            class="inline-flex underlines-ani items-center text-lg font-semibold text-gray-800 hover-color"
-          >
-            Contact Us
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="hidden space-x-2 lg:block">
-      <button
-        type="button"
-        class="rounded-md bg-transparent px-3 py-2 text-lg font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-      >
-        <a href="/signup">Sign Up</a>
-      </button>
-      <button
-        type="button"
-        class="hover-dark rounded-md border border-black px-3 py-2 text-lg font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-      >
-        <a href = "/login">Log In</a>
-      </button>
-    </div>
-  </div>
-</div>
+</body>
+</html>

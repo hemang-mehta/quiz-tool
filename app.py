@@ -16,6 +16,7 @@ User_login_data = collection['User_login_data']
 User_score_data = collection['User_score_data']
 User_curr_score = collection['User_curr_score']
 q_db = collection['Topic_wise_questions']
+u_msg = collection['User_msgs']
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mydata"
@@ -30,11 +31,7 @@ def home():
     else:
         if request.method == 'POST':
             button_clicked = request.form['enter']
-            if button_clicked == 'login':
-                user = None
-                surname = None
-                return redirect(url_for('login'))
-            elif button_clicked == 'signup':
+            if button_clicked == 'signup':
                 user = None
                 surname = None
                 return redirect(url_for('signup'))
@@ -133,7 +130,7 @@ def aboutus():
         user = None
     return render_template('aboutus.html', surname = surname, userid = user)
 
-@app.route('/contactus')
+@app.route('/contactus', methods=['POST', 'GET'])
 def contactus():
     if 'user' in session:
         user = session['user']
@@ -141,6 +138,12 @@ def contactus():
     else:
         surname = None
         user = None
+    if request.method=='POST':
+        name = request.form['name']
+        email = request.form['email']
+        msg = request.form['message']
+        u_msg.insert_one({'name': name, 'emailid': email, 'message':msg})
+        return render_template('contactus.html', surname = surname, userid = user)
     return render_template('contactus.html', surname = surname, userid = user)
 
 @app.route('/userpage', methods=['POST', 'GET'])
