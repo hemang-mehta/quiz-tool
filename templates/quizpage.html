@@ -1,4 +1,6 @@
-{% if userid is not none%} {% include 'navbar_after_login.html'%}
+{% if userid is not none%} 
+{% set context = {'userid': userid, 'surname': surname} %}
+{% include 'navbar_after_login.html'%}
 {%else%} {% include 'navbar_before_login.html'%}
 {% endif %}
 <!DOCTYPE html>
@@ -10,32 +12,37 @@
     <title>Quiz</title>
 </head>
 <body>
-    <div class="h1-container">
-        <h1>Quiz</h1>
-    </div>
     <form id="quizform" method="POST" action="quizpage">
-        <h1>Question {{ current_index + 1 }} / {{ total_questions }}</h1>
+        <div class="ques_no">
+            <h1>Question {{ current_index + 1 }} / {{ total_questions }}</h1>
+        </div>
+        <div class="question">
+            <div class="ques">
+                <p>{{ ques_data.question }}</p>
+            </div>
+            <div class="options">
+                {% for option in ques_data.options %}
+                    <label class="lbl">
+                        <input type="radio" name="answer" value="{{ option }}" {% if option == ans %} checked {% endif %}>
+                        {{ option }}
+                        <br>
+                    </label><br>
+                {% endfor %}
+            </div>
+            {% if error %}
+                    <p class="error_message">{{ error }}</p>
+            {% endif %}
+            {% if current_index != 0 %}
+                <button type="submit" name="button_clicked" value="previous">Previous</button>
+            {% endif %}
+            
+            {% if current_index == total_questions - 1 %}
+                <button type="submit" name="button_clicked" value="submit">Submit</button>
+            {% else %}
+                <button type="submit" name="button_clicked" value="next">Next</button>
+            {% endif %}
+        </div>
         
-        <p>{{ ques_data.question }}</p>
-        
-        {% for option in ques_data.options %}
-            <label>
-                <input type="radio" name="answer" value="{{ option }}" {% if option == ans %} checked {% endif %}>
-                {{ option }}
-            </label><br>
-        {% endfor %}
-        {% if error %}
-                <p class="error-message">{{ error }}</p>
-        {% endif %}
-        {% if current_index != 0 %}
-            <button type="submit" name="button_clicked" value="previous">Previous</button>
-        {% endif %}
-        
-        {% if current_index == total_questions - 1 %}
-            <button type="submit" name="button_clicked" value="submit">Submit</button>
-        {% else %}
-            <button type="submit" name="button_clicked" value="next">Next</button>
-        {% endif %}
     </form>
 
 </body>

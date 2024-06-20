@@ -4,6 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 100px;
 }
 
 .homepage_body {
@@ -17,9 +18,10 @@
 }
 
 .homepage_body h3 {
-    font-size: 65px;
+    font-size: 45px;
     font-weight: 750;
     color: #f8c35c;
+    max-width: 450px;
 }
 
 .homepage_body h1 {

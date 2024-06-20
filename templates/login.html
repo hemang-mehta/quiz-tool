@@ -1,65 +1,92 @@
 {% include 'navbar_before_login.html' %}
-<section>
-  <div class="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
-    <div class="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
-      <h2 class="text-center text-2xl font-bold leading-tight text-black">
-        Sign in to your account
-      </h2>
-      <p class="mt-2 text-center text-sm text-gray-600 ">
-        Don't have an account?
-        <a
-          href="/signup"
-          title=""
-          class="font-semibold text-black transition-all duration-200 hover:underline"
-        >
-          Create a free account
-        </a>
-      </p>
-      <form action="{{url_for('login')}}" method="POST" class="mt-8">
-        <div class="space-y-5">
-          <div>
-            <label for="emailid" class="text-base font-medium text-gray-900">
-              Email-id
-            </label>
-            <div class="mt-2">
-              <input
-                name="emailid"
-                class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                type="text"
-                placeholder="Email-id"
-              />
-            </div>
-          </div>
-          <div>
-            <div class="flex items-center justify-between">
-              <label for="" class="text-base font-medium text-gray-900">
-                
-                Password
-              </label>
-            </div>
-            <div class="mt-2">
-              <input
-                class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                type="password"
-                placeholder="Password"
-                name="password"
-              />
 
-              {% if error %}
-                <p class="error-message">{{ error }}</p>
-              {% endif %}
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .custom-button {
+      display: inline-flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      font-weight: bold;
+      font-size: 16px;
+      color: white;
+      background-color: #445197;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .custom-button:hover {
+      background-color: #6a78c8;
+    }
+  </style>
+</head>
+<body>
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <div class="bg-white w-full max-w-4xl mx-auto rounded-md shadow-md overflow-hidden flex">
+  
+    <div class="w-1/2 p-8 flex items-center justify-center" style="background-image: url('static/images/loginbg.jpg'); background-size:cover;">
+      <div>
+        <h2 class="text-4xl font-bold text-black mb-4" style="color: #475edf;">Welcome Back</h2>
+        <p class="text-lg font-semibold" style="color: #475edf;">Sign in to your account</p>
+      </div>
+    </div>
+    
+  
+    <div class="w-1/2 p-8">
+      <div class="max-w-md mx-auto">
+        <h2 class="text-2xl font-bold leading-tight text-black mb-4">
+          Sign in to your account
+        </h2>
+        <p class="mb-6 text-base text-gray-600">
+          Don't have an account?
+          <a
+            href="/signup"
+            title=""
+            class="font-medium text-black transition-all duration-200 hover:underline"
+          >
+            Create a free account
+          </a>
+        </p>
+        <form action="{{ url_for('login') }}" method="POST" class="space-y-5">
+          <div>
+            <label for="emailid" class="text-base font-medium text-gray-900">Email-id</label>
+            <input
+              class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              type="text"
+              placeholder="Email-id"
+              id="emailid"
+              name="emailid"
+            />
           </div>
           <div>
-            <button
-              type="submit"
-              class="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
-            >
+            <label for="password" class="text-base font-medium text-gray-900">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+            />
+            {% if error %}
+            <p class="text-red-500 text-sm mt-2">{{ error }}</p>
+            {% endif %}
+          </div>
+          <div>
+            <button type="submit" class="custom-button">
               Login
             </button>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
-</section>
+</div>
+</body>
+</html>

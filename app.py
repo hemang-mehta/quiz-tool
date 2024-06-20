@@ -1,8 +1,7 @@
-from bson import ObjectId
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session
 import datetime
 from pymongo import MongoClient
-from Web_scrapping import gfg_ques_retrieval
+# from Web_scrapping import gfg_ques_retrieval
 
 file = open('mongo_url.txt')
 mongo_url, sk = file.readlines()
@@ -158,6 +157,9 @@ def userpage():
                 return render_template('userpage.html', test = True, userid = user, surname = surname)
         if request.method == 'POST':
             topics = request.form.getlist('topics')
+            print(topics)
+            if topics == []:
+                return render_template('userpage.html', surname = surname, userid = user)
             session['topics'] = topics
             ques_data = {}
             total_questions = 0
@@ -266,7 +268,7 @@ def quizpage():
                                 current_index = session['current_index'],
                                 ans = ans)
             else:
-                error = 'Give some answer.......................'
+                error = 'Select an answer first!'
                 if button_clicked=='previous':
                     session['current_index'] -= 1
                     error = None

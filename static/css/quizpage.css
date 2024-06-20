@@ -1,60 +1,56 @@
-body{
-    background-color: #f2f2f2;
-}
-.h1-container{
+form {
     display: flex;
-    justify-content: center;
-    color: black;
-    h1{
-        font-size: 70px;
-        font-weight: 700;
-    }
+    justify-content: flex-start;
+    max-width: 600px;
+    margin-left: 32%;
+    padding-top: 50px;
 }
 
-.card-container{
-    width: auto;
-    border-color: black;
-    color: black;
-    margin-left:30px;
+.ques{
+    font-size: 28px;
+    font-weight: 600;
 }
 
-.card-title{
-    color: black;
-    font-size: 18px;
+h1{
+    font-size: 21px;
+    font-weight: 800;
+    font: 400;
+    margin-right: 10px;
 }
 
-.question{
-    font-family: Arial, Helvetica, sans-serif;
-    color: black;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    font-size: 17px;
-}
-
-.code{
-    font-size: 15px;
-    font-weight: 400;
-    color: rgb(58, 165, 95);
-    max-width:fit-content;
-    border-radius: 5px;
-}
-
-.button {
-    padding: 10px 15px;
+.options{
+    padding: 10px;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    border: 1px solid #d6d6d6;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
     margin-bottom: 10px;
-    font-size: 15px;
-    font-weight: 500;
-    text-align: center;
-    cursor: pointer;
-    outline: none;
-    color: rgb(45, 104, 181);
-    background-color: #2cbb5d1f;
-    border: none;
-    border-radius: 7px;
-    
 }
 
-.button-container{
-    display: flex;
-    justify-content: center;
+label{
+    font-size: 19px;
+    font-weight: 500;
+}
+
+label:hover
+{
+    color: grey;
+}
+
+button{
+    font-family: system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    border: solid black 2px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
+  }
+
+.error_message{
+    font-size: 22px;
+    color: red;
+    font-weight: 600;
+    padding-top: 5px;
+    padding-bottom: 10px;
 }
