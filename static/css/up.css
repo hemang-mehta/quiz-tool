@@ -1,5 +1,5 @@
 :root {
-  --form-control-color: rebeccapurple;
+  --form-control-color: rgb(170, 131, 209);
   --form-control-disabled: #959495;
 }
 
@@ -24,7 +24,6 @@ body {
 form {
   display: grid;
   place-content: center;
-  min-height: 80vh;
   justify-content: start;
   margin-left: 40%;
 }
@@ -96,13 +95,15 @@ input[type="checkbox"]:focus {
   padding-bottom: 20px;
   align-items: center;
   flex-direction: row;
+  color: white;
 }
 
 button{
   font-family: system-ui, sans-serif;
   font-size: 1rem;
   font-weight: bold;
-  border: solid black 2px;
+  color: white;
+  border: solid white 2px;
   border-radius: 5px;
-  padding: 5px;
+  padding: 8px;
 }

@@ -1,3 +1,6 @@
+*{
+    background-color: black;
+}
 .main {
     color: black;
     font-weight: 700;
@@ -12,16 +15,16 @@
     flex-direction: column;
     justify-content: center;
     max-width: 50%;
-    color: black;
     margin-left: 100px;
     margin-bottom: 100px;
 }
 
 .homepage_body h3 {
-    font-size: 45px;
+    font-size: 25px;
     font-weight: 750;
     color: #f8c35c;
     max-width: 450px;
+    margin-bottom: 30px;
 }
 
 .homepage_body h1 {
@@ -34,13 +37,13 @@
 .homepage_img {
     display: flex;
     justify-content: flex-end;
-    max-width: 50%;
 }
 
 .homepage_img img {
-    max-width: 100%;
+    width: 600px;
     height: auto;
-    margin-right: 150px;
+    margin-right: 200px;
+    margin-bottom: 100px;
 }
 
 form {
@@ -52,17 +55,14 @@ form {
     height: 50px; /* To make the button circular */
     border-radius: 15px;
     box-shadow: 0 4px 8px rgb(0,0,0,0.2); /* Grey shadow */
-    background-color: white; /* White background */
-    color: #475edf; /* Text color */
+    background-color: #475edf; /* White background */
+    color: #f8c35c; /* Text color */
     font-size: 20px; /* Font size */
+    font-weight: 600;
     display: flex; /* Use flexbox for centering text */
     align-items: center; /* Vertically center the text */
     justify-content: center; /* Horizontally center the text */
     border: none; /* Remove default border */
     cursor: pointer; /* Pointer cursor on hover */
     transition: box-shadow 0.3s ease; /* Smooth shadow transition */
-}
-
-.enter_button:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
 }

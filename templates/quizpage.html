@@ -11,24 +11,43 @@
     <link rel="stylesheet" href="static/css/quizpage.css">
     <title>Quiz</title>
 </head>
-<body>
-    <form id="quizform" method="POST" action="quizpage">
-        <div class="ques_no">
-            <h1>Question {{ current_index + 1 }} / {{ total_questions }}</h1>
-        </div>
+<body class="overflow-hidden">
+    <div class="ques_no">
+        <h1>Question {{ current_index + 1 }} / {{ total_questions }}</h1>
+    </div>
+    <form id="quizform" method="POST" action="quizpage" class="xyz">
         <div class="question">
             <div class="ques">
                 <p>{{ ques_data.question }}</p>
             </div>
-            <div class="options">
-                {% for option in ques_data.options %}
-                    <label class="lbl">
-                        <input type="radio" name="answer" value="{{ option }}" {% if option == ans %} checked {% endif %}>
-                        {{ option }}
-                        <br>
-                    </label><br>
-                {% endfor %}
-            </div>
+            <section class="radio-section">
+                <div class="radio-list">
+                    <div class="radio-item">
+                        <input type="radio" id="radio0" name="answer" value="{{ ques_data.options[0] }}" {% if ques_data.options[0] == ans %} checked {% endif %}>
+                        <label class="lbl" for="radio0">
+                            {{ ques_data.options[0] }}
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="radio1" name="answer" value="{{ ques_data.options[1] }}" {% if ques_data.options[1] == ans %} checked {% endif %}>
+                        <label class="lbl" for="radio1">
+                            {{ ques_data.options[1] }}
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="radio2" name="answer" value="{{ ques_data.options[2] }}" {% if ques_data.options[2] == ans %} checked {% endif %}>
+                        <label class="lbl" for="radio2">
+                            {{ ques_data.options[2] }}
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="radio3" name="answer" value="{{ ques_data.options[3] }}" {% if ques_data.options[3] == ans %} checked {% endif %}>
+                        <label class="lbl" for="radio3">
+                            {{ ques_data.options[3] }}
+                        </label>
+                    </div>
+                </div>
+            </section> 
             {% if error %}
                     <p class="error_message">{{ error }}</p>
             {% endif %}

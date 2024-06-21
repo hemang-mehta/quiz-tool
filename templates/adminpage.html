@@ -7,25 +7,11 @@
     <link rel="stylesheet" href="static/css/adminpage.css">
     <title>Admin Page</title>
 </head>
-<body>
-    <div class="Welcome">
-        <h1>Welcome admin!</h1>
-    </div>
+<body class="overflow-hidden">
     <form action="/adminpage" method="POST">
         <button type="submit" name="button_clicked" value="QDB">Questions Database</button>
         
         <button type="submit" name="button_clicked" value="US">User Statistics</button>
-
-        <!-- <button type="button" name="button_clicked" id="gnq" value="GNQ">Get new questions</button>
-        <div id="numlinks" style="display: none;">
-            <p>Enter number of links to scrape to get new questions:</p>
-            <input type="number" name="numlinks">
-            <button type="submit" name="button_clicked" id="submit" value="GNQ">Submit</button>
-            <div id="wait" style="display: none;">
-                <p>Please  Wait!!!</p>
-                <div class="loading"></div>
-            </div>
-        </div> -->
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
                 <ul class="messages" style="list-style-type: none;">
@@ -39,18 +25,4 @@
         {% endwith %}
     </form>
 </body>
-<!-- <script>
-    const newQuesButton = document.getElementById('gnq');
-    const numLinksDiv = document.getElementById('numlinks');
-    const submit = document.getElementById('submit');
-    const waiting = document.getElementById('wait')
-
-    newQuesButton.addEventListener("click", function() {
-        numLinksDiv.style.display = "block";
-    });
-
-    submit.addEventListener("click", function(){
-        waiting.style.display = "flex";
-    })
-</script> -->
 </html>

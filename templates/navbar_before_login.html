@@ -7,39 +7,42 @@
     
     <style>
         .gradient-text {
-          background: linear-gradient(135deg, #475edf, yellow);
+          background: linear-gradient(135deg, #475edf, #f8c35c);
           background-clip: text;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           font-size: 40px;
           font-weight: bold;
         }
+        .hov:hover{
+            color: #475edf;
+        }
       </style>
 </head>
 <body>
-    <div class="w-full bg-white font-bold">
+    <div class="w-full bg-black font-bold">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
             <div class="inline-flex items-center space-x-2">
-                <img class="h-10 w-10" src="static/images/qt-icon.avif">
+                <!-- <img class="h-10 w-10" src="static/images/qt-icon.avif"> -->
                 <span class="gradient-text">Quiz-Tool</span>
             </div>
             <div class="flex items-center space-x-3">
                 <ul class="hidden lg:flex space-x-5">
                     <li>
-                        <a href="/" class="inline-flex underlines-ani items-center text-xl font-semibold text-gray-800 hover-color">Home</a>
+                        <a href="/" class="inline-flex underlines-ani items-center text-xl font-semibold text-white hov">Home</a>
                     </li>
                     <li>
-                        <a href="/aboutus" class="inline-flex underlines-ani items-center text-xl font-semibold text-gray-800 hover-color">About Us</a>
+                        <a href="/aboutus" class="inline-flex underlines-ani items-center text-xl font-semibold text-white hov">About Us</a>
                     </li>
                     <li>
-                        <a href="/contactus" class="inline-flex underlines-ani items-center text-xl font-semibold text-gray-800 hover-color">Contact Us</a>
+                        <a href="/contactus" class="inline-flex underlines-ani items-center text-xl font-semibold text-white hov">Contact Us</a>
                     </li>
                 </ul>
                 <div class="flex">
-                    <button type="button" class="rounded-md bg-transparent px-3 py-2 text-xl font-semibold text-black">
+                    <button type="button" class="rounded-md bg-transparent px-3 py-2 text-xl font-semibold text-white hov">
                         <a href="/signup">Sign Up</a>
                     </button>
-                    <button type="button" class="hover-dark px-3 py-2 text-xl font-semibold text-black">
+                    <button type="button" class="hover-dark px-3 py-2 text-xl font-semibold text-white hov">
                         <a href="/login">Log In</a>
                     </button>
                 </div>
