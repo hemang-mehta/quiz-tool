@@ -16,16 +16,21 @@
     
 </head>
 <body class="overflor-hidden bg-black">
-    {% if test %}
-    <form method="POST" id="contTest" action="/pendingtest">
-        <h1>Complete the pending test first...</h1>
+    {% if test == 'remaining'%}
+    <form method="POST" id="contTest" action="/pendingtest" class="contTest">
+        <h1>{{ message }}</h1>
         <button type="submit" name="contTest" value="contTest">Continue</button>
     </form>
+    {% elif test == 'complete' %}
+    <form method="POST" class="contTest">
+        <h1>{{ message }}</h1>
+        <button type="submit">Continue</button>
+    </form>
     {% else %}
-        <div class="welcome">
-            <h1>Select topics</h1>
-        </div>
-    <form method="POST" id="topics">
+    <div class="welcome">
+        <h1>Select topics</h1>
+    </div>
+    <form method="POST" id="topics" class = "topics">
         <div class="input_label">
 
             <input type="checkbox" name="topics" id="dotnet" value="dotnet"><label class="form-control" for="dotnet">DotNet</label><br>

@@ -1,0 +1,36 @@
+*{
+    background-color: black;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    max-width: 90%;
+}
+
+.table{
+    display: flex;
+    justify-content: center;
+}
+
+th, td {
+    border: 1px solid white;
+    color: white;
+    padding: 10px;
+}
+
+h1{
+    justify-content: center;
+    display: flex;
+    font-size: 50px;
+    font-weight: 700;
+    color: white;
+}
+
+.details-row {
+    display: none;
+}
+
+.username:hover{
+    background-color: rgb(37, 37, 37);
+}

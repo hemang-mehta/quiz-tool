@@ -5,7 +5,7 @@ body{
 form {
     display: flex;
     justify-content: flex-start;
-    margin-top: 5%;
+    margin-top: 3%;
     /* padding-top: 50px; */
 }
 .ques_no{
@@ -33,92 +33,6 @@ h1{
     margin-right: 10px;
 }
 
-/* .options{
-    padding: 10px;
-    background-color: black;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-    margin-bottom: 10px;
-}
-
-label{
-    font-size: 22px;
-    font-weight: 500;
-    color: white;
-}
-
-label:hover
-{
-    color: grey;
-} 
-.radio-section {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-ul{
-    list-style-type: none;
-}
-.options [type='radio']{
-    display: none;
-}
-
-.options + .options {
-	margin-top: 15px;
-}
-
-.options label {
-	display: block;
-	padding: 20px 60px;
-	background: #1d1d42;
-	border: 2px solid rgba(255, 255, 255, 0.1);
-	border-radius: 8px;
-	cursor: pointer;
-	font-size: 18px;
-	font-weight: 400;
-	min-width: 250px;
-	white-space: nowrap;
-	position: relative;
-	transition: 0.4s ease-in-out 0s;
-}
-.options label:after,
-.options label:before {
-	content: "";
-	position: absolute;
-	border-radius: 50%;
-}
-.options label:after {
-	height: 19px;
-	width: 19px;
-	border: 2px solid #524eee;
-	left: 19px;
-	top: calc(50% - 12px);
-}
-.options label:before {
-	background: #524eee;
-	height: 20px;
-	width: 20px;
-	left: 21px;
-	top: calc(50%-5px);
-	transform: scale(5);
-	opacity: 0;
-	visibility: hidden;
-	transition: 0.4s ease-in-out 0s;
-}
-.options [type="radio"]:checked ~ label {
-	border-color: #524eee;
-}
-.options [type="radio"]:checked ~ label::before {
-	opacity: 1;
-	visibility: visible;
-	transform: scale(1);
-}
-
-*/
-
-
-
-
-/*  */
 .lbl{
     color: white;
 }
@@ -179,6 +93,7 @@ button{
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 20px;
+	margin-top: 10px;
 }
 
 .error_message{

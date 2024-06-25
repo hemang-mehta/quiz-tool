@@ -1,3 +1,31 @@
+*{
+    background-color: black;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+span {
+    font-weight: 700;
+    font-size: 20px;
+    color: #475edf;
+    padding-right: 5px;
+}
+
+a{
+    padding-right: 5px;
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+}
+}
+
+a:hover{
+    color: #475edf;
+}
+
 .main {
     display: flex;
     justify-content: center;
@@ -6,6 +34,7 @@
 .main h1 {
     font-size: 50px;
     font-weight: 700;
+    color: white;
 }
 
 table {
@@ -14,21 +43,22 @@ table {
 }
 
 th, td {
-    border-bottom: 1px solid black;
+    color: white;
+    border-bottom: 1px solid white;
     padding: 8px;
-    text-align: left;
+    /* number-align: left; */
 }
 
-th {
+/* th {
     background-color: #f2f2f2;
-}
+} */
 
 td:first-child {
     width: 10px;
 }
 
 td:not(:first-child){
-    text-align: left;
+    /* number-align: left; */
     max-width: 150px;
 }
 
@@ -47,15 +77,10 @@ tr:hover {
     margin: 0;
     font-size: 15px;
     font-weight: 400;
-    color: black;
+    color: white;
     white-space: pre-wrap;
 }
 
-.button-container{
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
     button{
         font-size: 16px;
         padding: 10px 20px;
@@ -68,4 +93,13 @@ tr:hover {
         background-color: black;
         color: white;
     }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.pagination input[type='number']{
+    width: 60px; color: white;
 }

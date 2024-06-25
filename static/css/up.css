@@ -13,7 +13,7 @@ body {
   margin: 0;
 }
 
-.welcome{
+h1{
   display: flex;
   justify-content: center;
   font-weight: 800;
@@ -21,11 +21,18 @@ body {
   color: #f8c35c;
 }
 
-form {
+form.contTest {
   display: grid;
   place-content: center;
-  justify-content: start;
-  margin-left: 40%;
+  justify-content: center;
+  justify-items: center;
+}
+
+form.topics{
+  display: grid;
+  place-content: center;
+  justify-content: center;
+  margin-right: 80px;
 }
 
 .form-control {
