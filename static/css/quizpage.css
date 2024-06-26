@@ -6,7 +6,6 @@ form {
     display: flex;
     justify-content: flex-start;
     margin-top: 3%;
-    /* padding-top: 50px; */
 }
 .ques_no{
     color: white;
@@ -21,6 +20,8 @@ form {
     font-weight: 600;
     margin-bottom: 5%;
     max-width: 1000px;
+    display: flex;
+    justify-content: flex-start;
 }
 .question{
     margin:auto;
@@ -39,7 +40,7 @@ h1{
 .radio-section {
     display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 }
 
 .radio-item [type="radio"] {
@@ -84,6 +85,19 @@ h1{
 	visibility: visible;
 	transform: scale(1);
 }
+
+.button_container{
+    width: 90%;
+    margin: auto;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left{
+    justify-content: left;
+}
+
 button{
     font-family: system-ui, sans-serif;
     font-size: 1rem;
@@ -94,7 +108,10 @@ button{
     padding: 5px;
     margin-bottom: 20px;
 	margin-top: 10px;
+    margin-right: 10px;
 }
+
+
 
 .error_message{
     font-size: 22px;
@@ -107,4 +124,6 @@ button{
 .xyz{
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: flex-end;
 }

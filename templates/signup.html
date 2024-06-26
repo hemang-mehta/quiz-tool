@@ -24,13 +24,13 @@
     }
 
     .custom-button:hover {
-      background-color: #6a78c8; /* Updated color for hover state */
+      background-color: #6a78c8;
     }
   </style>
 </head>
-<body class="overflow-hidden min-h-screen">
+<body class="overflow-hidden min-h-screen bg-black">
 
-<div class="flex justify-center items-center bg-black">
+<div class="flex justify-center items-center">
     <div>
       <div class="max-w-md mx-auto">
         <h2 class="text-2xl font-bold leading-tight text-white mb-2">
@@ -50,7 +50,7 @@
           <div>
             <label for="name" class="text-base font-medium text-white">Name</label>
             <input
-              class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex h-10 w-full text-white rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
               type="text"
               placeholder="Name"
               id="name"
@@ -60,7 +60,7 @@
           <div>
             <label for="surname" class="text-base font-medium text-white">Surname</label>
             <input
-              class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex h-10 w-full text-white rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
               type="text"
               placeholder="Surname"
               id="surname"
@@ -70,7 +70,7 @@
           <div>
             <label for="emailid" class="text-base font-medium text-white">Email-id</label>
             <input
-              class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex h-10 w-full text-white rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
               type="text"
               placeholder="Email-id"
               id="emailid"
@@ -97,7 +97,7 @@
               name="password"
               id="password"
               placeholder="Password"
-              class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex h-10 w-full text-white rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
             />
           </div>
           <div>
@@ -107,7 +107,7 @@
               name="confirmpassword"
               id="confirmpassword"
               placeholder="Confirm Password"
-              class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex h-10 w-full text-white rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
             />
             <p id="passwordError" class="text-red-500 text-sm mt-2" style="display: none;">Passwords do not match.</p>
             {% if error %}

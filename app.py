@@ -212,7 +212,6 @@ def userpage():
                                         'start_time': datetime.datetime.now()})
             User_score_data.update_one(filter={'emailid':emailid}, update={'$inc':{'num_tests':1}, '$push':{'test_data':ques_data}})
             session['current_index'] = 0
-            session['total_questions'] = total_questions
             return redirect(url_for('quizpage'))
         elif request.method == 'GET':
             if 'message' in request.args:
@@ -233,11 +232,12 @@ def quizpage():
             q_no = session['ques_data'][session['topics'][int(session['current_index']/3)]][session['current_index']%3]
             ques_data = q_db.find_one({'category': session['topics'][0], 'q_no': session['ques_data'][session['topics'][0]][0]})
             ans = User_curr_score.find_one({'emailid': session['emailid']})['questions'][topic][session['current_index']%3][str(q_no)]
+            total_questions = len(User_curr_score.find_one({'emailid': session['emailid']})['questions'])*3
             return render_template('quizpage.html',
                                    surname = surname,
                                    userid = user,
                                    ques_data = ques_data,
-                                   total_questions=session['total_questions'],
+                                   total_questions=total_questions,
                                    current_index = session['current_index'],
                                    ans = ans)
         
@@ -275,11 +275,12 @@ def quizpage():
                 q_no = session['ques_data'][session['topics'][int(session['current_index']/3)]][session['current_index']%3]
                 ques_data = q_db.find_one({'category': topic, 'q_no': q_no})
                 ans = User_curr_score.find_one({'emailid': session['emailid']})['questions'][topic][session['current_index']%3][str(q_no)]
+                total_questions = len(User_curr_score.find_one({'emailid': session['emailid']})['questions'])*3
                 return render_template('quizpage.html',
                                 surname = surname,
                                 userid = user,
                                 ques_data = ques_data,
-                                total_questions=session['total_questions'],
+                                total_questions=total_questions,
                                 current_index = session['current_index'],
                                 ans = ans)
             else:
@@ -293,11 +294,12 @@ def quizpage():
                 topic = session['topics'][int(session['current_index']/3)]
                 q_no = session['ques_data'][session['topics'][int(session['current_index']/3)]][session['current_index']%3]
                 ques_data = q_db.find_one({'category': topic, 'q_no': q_no})
+                total_questions = len(User_curr_score.find_one({'emailid': session['emailid']})['questions'])*3
                 return render_template('quizpage.html',
                                     surname = surname,
                                     userid = user,
                                     ques_data = ques_data,
-                                    total_questions=session['total_questions'],
+                                    total_questions=total_questions,
                                     current_index = session['current_index'],
                                     error = error,
                                     ans = ans)
@@ -307,13 +309,32 @@ def quizpage():
 @app.route('/pendingtest', methods=['POST'])
 def pendingtest():
     if request.method == 'POST':
-        temp_ques_data = {}
-        session['topics'] = list(User_curr_score.find_one({'emailid': session['emailid']})['questions'].keys())
-        for key, value in User_curr_score.find_one({'emailid': session['emailid']})['questions'].items():
-            temp_ques_data[key] = [int(list(v.keys())[0]) for v in value]
-        session['ques_data'] = temp_ques_data
-        session['current_index'] = 0
-        return redirect(url_for('quizpage'))
+        if request.form['contTest'] == 'contTest':
+            temp_ques_data = {}
+            session['topics'] = list(User_curr_score.find_one({'emailid': session['emailid']})['questions'].keys())
+            for key, value in User_curr_score.find_one({'emailid': session['emailid']})['questions'].items():
+                temp_ques_data[key] = [int(list(v.keys())[0]) for v in value]
+            session['ques_data'] = temp_ques_data
+            session['current_index'] = 0
+            return redirect(url_for('quizpage'))
+        elif request.form['contTest'] == 'quittest':
+            #Update the last question...
+            new_data = User_curr_score.find_one({'emailid': session['emailid']})['questions']
+            start_date = User_curr_score.find_one({'emailid': session['emailid']})['start_date']
+            time_taken = (datetime.datetime.now() - User_curr_score.find_one({'emailid': session['emailid']})['start_time']).total_seconds()
+            User_curr_score.delete_one({'emailid': session['emailid']})
+            # Get score
+            score = 0
+            for topic, user_inp in new_data.items():
+                for i in user_inp:
+                    for q_no, user_ans in i.items():
+                        if user_ans == q_db.find_one({'category': topic, 'q_no': int(q_no)})['answer']:
+                            score += 1
+
+            User_score_data.update_one(filter={'emailid': session['emailid']},
+                                       update={'$set': {f'test_data.{len(User_score_data.find_one({'emailid':session['emailid']})['test_data'])-1}': new_data},
+                                       '$push':{'scores': score, 'date': start_date, 'time_taken': time_taken}})
+            return redirect(url_for('userpage', message='Test submitted without completion.'))
 
 @app.route('/logout')
 def logout():

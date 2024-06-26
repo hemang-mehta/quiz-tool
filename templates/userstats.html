@@ -25,15 +25,15 @@
             <tbody>
                 {% for record in u_data %}
                     <tr class="user-row" data-user-email="{{ record.emailid }}">
-                        <td>{{ loop.index }}</td>
+                        <td style="text-align: center;">{{ loop.index }}</td>
                         <td class="username">{{ record.emailid }}</td>
                         <td colspan="5"></td>
                     </tr>
                     {% for test_index in range(record['num_tests']) %}
-                        <tr class="details-row details-for-user-{{ record.emailid }}" style="display: none;">
+                        <tr class="details-row details-for-user-{{ record.emailid }}">
                             <td></td>
                             <td></td>
-                            <td>{{ test_index + 1 }}</td>
+                            <td style="text-align: center;">{{ test_index + 1 }}</td>
                             <td>{{ record.test_data[test_index].keys() | join(', ') }}</td>
                             <td>{{ record.scores[test_index] }}</td>
                             <td>{{ record.date[test_index] }}</td>

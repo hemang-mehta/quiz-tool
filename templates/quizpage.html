@@ -46,19 +46,23 @@
                             {{ ques_data.options[3] }}
                         </label>
                     </div>
+                    {% if error %}
+                            <p class="error_message">{{ error }}</p>
+                    {% endif %}
                 </div>
             </section> 
-            {% if error %}
-                    <p class="error_message">{{ error }}</p>
-            {% endif %}
+        </div>
+        <div class="button_container">
             {% if current_index != 0 %}
-                <button type="submit" name="button_clicked" value="previous">Previous</button>
-            {% endif %}
+                <button type="submit" name="button_clicked" value="previous" class="left">Previous</button>
+            {% else %}
+            <button type="button" style="border-color: black;cursor: default;"></button>
+            {% endif %} 
             
             {% if current_index == total_questions - 1 %}
                 <button type="submit" name="button_clicked" value="submit">Submit</button>
             {% else %}
-                <button type="submit" name="button_clicked" value="next">Next</button>
+                <button type="submit" name="button_clicked" value="next" class="right">Next</button>
             {% endif %}
         </div>
         
