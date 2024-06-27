@@ -20,7 +20,6 @@
       border-radius: 6px;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      margin-bottom:90px;
     }
 
     .custom-button:hover {
@@ -28,12 +27,12 @@
     }
   </style>
 </head>
-<body class="overflow-hidden min-h-screen bg-black">
+<body class="min-h-screen bg-black" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
 
-<div class="flex justify-center items-center">
-    <div>
+<div class="flex justify-center items-center mt-20">
+    <div class="flex justify-center items-center p-3 mb-5", style="background-color: white; border: white solid; border-radius: 5px;">
       <div class="max-w-md mx-auto">
-        <h2 class="text-2xl font-bold leading-tight text-white mb-2">
+        <h2 class="text-2xl font-bold leading-tight text-black mb-2">
           Sign up to create account
         </h2>
         <p class="mb-4 text-base text-gray-600">
@@ -41,16 +40,16 @@
           <a
             href="/login"
             title=""
-            class="font-medium text-white transition-all duration-200 hover:underline"
+            class="font-medium text-black transition-all duration-200 hover:underline"
           >
             Sign In
           </a>
         </p>
         <form action="{{ url_for('signup')}}" method="POST" class="space-y-5" onsubmit="return validatePasswords()">
           <div>
-            <label for="name" class="text-base font-medium text-white">Name</label>
+            <label for="name" class="text-base font-medium text-black">Name</label>
             <input
-              class="flex h-10 w-full text-white rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex h-10 mt-3 w-full text-black rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
               type="text"
               placeholder="Name"
               id="name"
@@ -58,9 +57,9 @@
             />
           </div>
           <div>
-            <label for="surname" class="text-base font-medium text-white">Surname</label>
+            <label for="surname" class="text-base font-medium text-black">Surname</label>
             <input
-              class="flex h-10 w-full text-white rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex h-10 mt-3 w-full text-black rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
               type="text"
               placeholder="Surname"
               id="surname"
@@ -68,9 +67,9 @@
             />
           </div>
           <div>
-            <label for="emailid" class="text-base font-medium text-white">Email-id</label>
+            <label for="emailid" class="text-base font-medium text-black">Email-id</label>
             <input
-              class="flex h-10 w-full text-white rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex h-10 mt-3 w-full text-black rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
               type="text"
               placeholder="Email-id"
               id="emailid"
@@ -78,9 +77,9 @@
             />
           </div>
           <div>
-            <label for="experience" class="text-base font-medium text-white">Experience</label>
+            <label for="experience" class="text-base font-medium text-black">Experience</label>
             <select
-              class="flex text-white w-full rounded-md border border-gray-300 bg-gray-900 px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex text-black mt-3 w-full rounded-md border border-gray-300 bg-gray-900 px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
               id="experience"
               name="experience"
             >
@@ -91,23 +90,23 @@
             </select>
           </div>
           <div>
-            <label for="password" class="text-base font-medium text-white">Password</label>
+            <label for="password" class="text-base font-medium text-black">Password</label>
             <input
               type="password"
               name="password"
               id="password"
               placeholder="Password"
-              class="flex h-10 w-full text-white rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex h-10 mt-3 w-full text-black rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
             />
           </div>
           <div>
-            <label for="confirmpassword" class="text-base font-medium text-white">Confirm Password</label>
+            <label for="confirmpassword" class="text-base font-medium text-black">Confirm Password</label>
             <input
               type="password"
               name="confirmpassword"
               id="confirmpassword"
               placeholder="Confirm Password"
-              class="flex h-10 w-full text-white rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex h-10 mt-3 w-full text-black rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
             />
             <p id="passwordError" class="text-red-500 text-sm mt-2" style="display: none;">Passwords do not match.</p>
             {% if error %}

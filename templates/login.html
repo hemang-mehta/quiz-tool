@@ -27,11 +27,11 @@
     }
   </style>
 </head>
-<body class="overflow-hidden bg-black" style="height: 100%;">
-<div class="flex justify-center items-center" style="height: 80%;">
-    <div class="p-8">
+<body class="overflow-hidden min-h-screen bg-black" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+<div class="flex justify-center items-center">
+    <div class="p-5" style="background: white; border: white solid; border-radius: 10px;">
       <div class="max-w-md mx-auto">
-        <h2 class="text-2xl font-bold leading-tight text-white mb-4">
+        <h2 class="text-2xl font-bold leading-tight text-black mb-4">
           Sign in to your account
         </h2>
         <p class="mb-6 text-base text-gray-600">
@@ -39,16 +39,16 @@
           <a
             href="/signup"
             title=""
-            class="font-medium text-white transition-all duration-200 hover:underline"
+            class="font-medium text-black transition-all duration-200 hover:underline"
           >
             Create a free account
           </a>
         </p>
         <form action="{{ url_for('login') }}" method="POST" class="space-y-5">
           <div>
-            <label for="emailid" class="text-base font-medium text-white">Email-id</label>
+            <label for="emailid" class="text-base font-medium text-black">Email-id</label>
             <input
-              class="flex text-white h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex text-black h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
               type="text"
               placeholder="Email-id"
               id="emailid"
@@ -56,13 +56,13 @@
             />
           </div>
           <div>
-            <label for="password" class="text-base font-medium text-white">Password</label>
+            <label for="password" class="text-base font-medium text-black">Password</label>
             <input
               type="password"
               name="password"
               id="password"
               placeholder="Password"
-              class="flex text-white h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+              class="flex text-black h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
             />
             {% if error %}
             <p class="text-red-500 text-sm mt-2">{{ error }}</p>

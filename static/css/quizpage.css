@@ -24,7 +24,12 @@ form {
     justify-content: flex-start;
 }
 .question{
-    margin:auto;
+    margin: auto;
+    min-height: 20%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 h1{
@@ -91,11 +96,7 @@ h1{
     margin: auto;
     align-items: center;
     display: flex;
-    justify-content: space-between;
-}
-
-.left{
-    justify-content: left;
+    justify-content: right;
 }
 
 button{

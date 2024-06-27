@@ -210,7 +210,7 @@ def userpage():
                                         'questions':ques_data,
                                         'start_date': datetime.datetime.now().strftime("%x"),
                                         'start_time': datetime.datetime.now()})
-            User_score_data.update_one(filter={'emailid':emailid}, update={'$inc':{'num_tests':1}, '$push':{'test_data':ques_data}})
+            User_score_data.update_one(filter={'emailid':emailid}, update={'$inc':{'num_tests':1}, '$push':{'test_data':ques_data, 'scores':0, 'date':datetime.datetime.now().strftime("%x"),'time_taken':-1}})
             session['current_index'] = 0
             return redirect(url_for('quizpage'))
         elif request.method == 'GET':
@@ -253,7 +253,6 @@ def quizpage():
                 if button_clicked == 'submit':
                     #Update the last question...
                     new_data = User_curr_score.find_one({'emailid': session['emailid']})['questions']
-                    start_date = User_curr_score.find_one({'emailid': session['emailid']})['start_date']
                     time_taken = (datetime.datetime.now() - User_curr_score.find_one({'emailid': session['emailid']})['start_time']).total_seconds()
                     User_curr_score.delete_one({'emailid': session['emailid']})
                     # Get score
@@ -264,8 +263,9 @@ def quizpage():
                                 if user_ans == q_db.find_one({'category': topic, 'q_no': int(q_no)})['answer']:
                                     score += 1
 
-                    User_score_data.update_one(filter={'emailid': session['emailid']}, update={'$set': {f'test_data.{len(User_score_data.find_one({'emailid':session['emailid']})['test_data'])-1}': new_data},
-                                                                                               '$push':{'scores': score, 'date': start_date, 'time_taken': time_taken}})
+                    User_score_data.update_one(filter={'emailid': session['emailid']}, update={'$set': {f'test_data.{len(User_score_data.find_one({'emailid':session['emailid']})['test_data'])-1}': new_data,
+                                                                                                        f'time_taken.{len(User_score_data.find_one({'emailid':session['emailid']})['time_taken'])-1}': time_taken,
+                                                                                                        f'scores.{len(User_score_data.find_one({'emailid':session['emailid']})['scores'])-1}': score}})
                     return redirect(url_for('userpage', message = 'Thank you for giving the test.'))
                 elif button_clicked=='previous':
                     session['current_index'] -= 1
@@ -320,7 +320,6 @@ def pendingtest():
         elif request.form['contTest'] == 'quittest':
             #Update the last question...
             new_data = User_curr_score.find_one({'emailid': session['emailid']})['questions']
-            start_date = User_curr_score.find_one({'emailid': session['emailid']})['start_date']
             time_taken = (datetime.datetime.now() - User_curr_score.find_one({'emailid': session['emailid']})['start_time']).total_seconds()
             User_curr_score.delete_one({'emailid': session['emailid']})
             # Get score
@@ -331,9 +330,9 @@ def pendingtest():
                         if user_ans == q_db.find_one({'category': topic, 'q_no': int(q_no)})['answer']:
                             score += 1
 
-            User_score_data.update_one(filter={'emailid': session['emailid']},
-                                       update={'$set': {f'test_data.{len(User_score_data.find_one({'emailid':session['emailid']})['test_data'])-1}': new_data},
-                                       '$push':{'scores': score, 'date': start_date, 'time_taken': time_taken}})
+            User_score_data.update_one(filter={'emailid': session['emailid']}, update={'$set': {f'test_data.{len(User_score_data.find_one({'emailid':session['emailid']})['test_data'])-1}': new_data,
+                                                                                                        f'time_taken.{len(User_score_data.find_one({'emailid':session['emailid']})['time_taken'])-1}': time_taken,
+                                                                                                        f'scores.{len(User_score_data.find_one({'emailid':session['emailid']})['scores'])-1}': score}})
             return redirect(url_for('userpage', message='Test submitted without completion.'))
 
 @app.route('/logout')
