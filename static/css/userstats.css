@@ -13,22 +13,32 @@ table {
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 10px;
+}
+
+.sub_table{
+    display: flex;
+    margin: 20px 0px;
+    border-collapse: collapse;
+    flex-direction: column;
+    align-items: center;
+    max-width: 200px;
+    width: 100px;
 }
 
 th, td {
-    /* border-top: 1px solid white;
-    border-bottom: 1px solid white; */
     border: 1px solid white;
     color: white;
     padding: 10px;
-    /* width: 100px; */
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    word-break: break-all;
-    white-space: normal;
-}
-td.topics{
+    max-width: 100px;
     width: 100px;
+    text-align: center;
+}
+
+
+th.sub_table_t, td.sub_table_t{
+    max-width: 1200px;
+    width: 1200px;
 }
 
 h1{
@@ -41,15 +51,9 @@ h1{
 
 .details-row {
     display: none;
-    
 }
 
-td.username{
-    max-width: max-content;
-    width: max-content;
-}
-
-.username:hover{
+.icon:hover{
     background-color: rgb(37, 37, 37);
 }
 

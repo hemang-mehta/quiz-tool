@@ -16,7 +16,9 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Email-ID</th>
+                    <th>Experience level</th>
                 </tr>
             </thead>
             {% endif %}
@@ -27,25 +29,28 @@
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
                           </svg></td>
-                        <td class="username">{{ u_data[i].emailid }}</td>
+                        <td >{{ u_login_data[i+1].name }} {{ u_login_data[i+1].surname }}</td>
+                        <td >{{ u_login_data[i+1].emailid }}</td>
+                        <td >{{ u_login_data[i+1].experience }}</td>
                     </tr>
                     <tr>
-                        <table class="details-row details-for-user-{{u_data[i].emailid}}">
+                        <table class="details-row details-for-user-{{u_data[i].emailid}} sub_table">
                             <thead>
-                                <th>Quiz No.</th>
-                                <th>Topics</th>
-                                <th>Score</th>
-                                <th>Date</th>
-                                <th>Time spent</th>
+                                <th class="sub_table_t" >Quiz No.</th>
+                                <th class="sub_table_t" >Topics</th>
+                                <th class="sub_table_t" >Score</th>
+                                <th class="sub_table_t" >Date</th>
+                                <th class="sub_table_t" >Time spent</th>
                             </thead>
                             <tbody>
                                 {% for test_index in range(u_data[i]['num_tests']) %}
                                 <tr>
-                                        <td style="text-align: center;">{{ test_index + 1 }}</td>
-                                        <td class="topics" style="text-align: center;">{{ u_data[i].test_data[test_index].keys() | join('<br>') | safe}}</td>
-                                        <td style="text-align: center;">{{ u_data[i].scores[test_index] }}</td>
-                                        <td style="text-align: center;">{{ u_data[i].date[test_index] }}</td>
-                                        <td style="text-align: center;">{{ u_data[i].time_taken[test_index] | round(1) }}s</td>
+                                        <td class="sub_table_t" style="text-align: center;">{{ test_index + 1 }}</td>
+                                        <td class="sub_table_t" style="text-align: center;">{{ u_data[i].test_data[test_index].keys() | join(', ')}}</td>
+                                        <!-- <td class="topics" style="text-align: center;">{{ u_data[i].test_data[test_index].keys() | join('<br>') | safe}}</td> -->
+                                        <td class="sub_table_t" style="text-align: center;">{{ u_data[i].scores[test_index] }}</td>
+                                        <td class="sub_table_t" style="text-align: center;">{{ u_data[i].date[test_index] }}</td>
+                                        <td class="sub_table_t" style="text-align: center;">{{ u_data[i].time_taken[test_index] | round(1) }}s</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -68,12 +73,13 @@
                     detailsRows.forEach(row => {
                         console.log(row)
                         if (row.classList.contains('details-for-user-'+userEmail)) {
-                            row.style.display = (row.style.display === 'none' || row.style.display === '') ? 'table-row' : 'none';
+                            row.style.display = (row.style.display === 'none' || row.style.display === '') ? 'flex' : 'none';
                             row.style.margin =  '20px 0px';
-                            row.style.width= 'fit-content';
-                            row.style.width= '100%';
+                            row.style.flexDirection = 'column';
+                            row.style.maxWidth = '1200px';
+                            row.style.width = '1200px';
+                            row.style.alignItems = 'center';
                             row.style.borderCollapse = 'collapse';
-                            row.style.maxWidth = '90%';
                         } else {
                             row.style.display = 'none';
                         }

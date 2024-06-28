@@ -1,6 +1,14 @@
 *{
     background-color: black;
 }
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+}
+
 .main {
     color: black;
     font-weight: 700;

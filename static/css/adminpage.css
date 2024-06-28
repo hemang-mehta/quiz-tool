@@ -6,8 +6,9 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    gap: 20px; /* Adds space between rows */
+    flex-direction: row;
+    gap: 20px;
+    height: 100vh;
 }
 
 form button {

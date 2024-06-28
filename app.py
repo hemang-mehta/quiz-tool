@@ -109,7 +109,9 @@ def adminpage():
 def userstats():
     if request.method=='GET':
         user_data = list(User_score_data.find({}))
-        return render_template('userstats.html', userid = session['user'], surname = session['surname'], u_data = user_data)
+        login_data = list(User_login_data.find({}))
+        return render_template('userstats.html', userid = session['user'], surname = session['surname'], 
+                               u_data = user_data, u_login_data = login_data)
 
 @app.route('/qdb', methods=['GET'])
 def qdb():
