@@ -1,2 +1,2 @@
-mongodb+srv://hemangmehta1703:hemang@mcq-tool.orytooa.mongodb.net/?retryWrites=true&w=majority&appName=MCQ-tool
-quiz-tool..
+Enter_your_mongo_atlas_url
+Enter_your_key_to_encode
