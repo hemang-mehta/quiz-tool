@@ -10,7 +10,7 @@
 <body class="overflow-hidden" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
     <form action="/adminpage" method="POST">
         <button type="submit" name="button_clicked" value="QDB">Questions Database</button>
-        
+        <button type="submit" name="button_clicked" value="UR">User reviews</button>
         <button type="submit" name="button_clicked" value="US">User Statistics</button>
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}

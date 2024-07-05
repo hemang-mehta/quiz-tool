@@ -1,0 +1,58 @@
+{% include 'navbar_after_login.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Review</title>
+    <style>
+        table{
+            border: solid white 3px;
+        }
+        body{
+            background-color: black;
+        }
+        th, td{
+            color: white;
+            border: solid white 3px;
+            padding: 3px;
+        }
+        .welcome{
+            display: flex;
+            justify-content: center;
+        }
+        .tables{
+            display: flex;
+            justify-content: center;
+        }
+        h1{
+            font-size: 50px;
+            font-weight: 700;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome">
+        <h1>User reviews</h1>
+    </div>
+    <div class="tables">
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Email-ID</th>
+            <th>Message</th>
+        </thead>
+        <tbody>
+            {% for i in range(review_data | length) %}
+            <tr>
+                <td>{{review_data[i]['name']}}</td>
+                <td>{{review_data[i]['emailid']}}</td>
+                <td>{{review_data[i]['message']}}</td>
+            </tr>
+            {% endfor %}           
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import datetime
 from pymongo import MongoClient
 from string import printable
+import re
 # from Web_scrapping import gfg_ques_retrieval
 
 file = open('mongo_url.txt')
@@ -15,6 +16,7 @@ collection = client['MCQ-tool']
 User_login_data = collection['User_login_data']
 User_score_data = collection['User_score_data']
 User_curr_score = collection['User_curr_score']
+User_review_data = collection['User_msgs']
 q_db = collection['Topic_wise_questions']
 u_msg = collection['User_msgs']
 
@@ -106,6 +108,9 @@ def adminpage():
     #   return render_template('adminpage.html', userid = session['user'], surname = session['surname'])
     elif button_clicked == 'US':
         return redirect(url_for('userstats'))
+    elif button_clicked == 'UR':
+        review_data = list(User_review_data.find({}))
+        return render_template('reviews.html', review_data = review_data)
     else:
       return render_template('adminpage.html', userid = session['user'], surname = session['surname'])
   if session['user'] == 'admin':
@@ -170,6 +175,10 @@ def contactus():
         name = request.form['name']
         email = request.form['email']
         msg = request.form['message']
+        error = None
+        if name == "" or email == "" or msg == "":
+            error = 'Fill in all the details...'
+            return render_template('contactus.html', userid = user, surname = surname, error = error)
         u_msg.insert_one({'name': name, 'emailid': email, 'message':msg})
         return render_template('contactus.html', surname = surname, userid = user)
     return render_template('contactus.html', surname = surname, userid = user)
@@ -224,10 +233,7 @@ def userpage():
             session['current_index'] = 0
             return redirect(url_for('quizpage'))
         elif request.method == 'GET':
-            if 'message' in request.args:
-                return render_template('userpage.html', test = 'complete', userid = user, surname = surname, message = request.args.get('message'))
-            
-        return render_template('userpage.html', surname = surname, userid = user)
+            return render_template('userpage.html', surname = surname, userid = user)
     else:
         return redirect(url_for('login'))
 
@@ -236,6 +242,9 @@ def quizpage():
     if 'user' in session:
         user = session['user']
         surname = session['surname']
+        emailid = User_login_data.find_one({'name': session['user']})['emailid']
+        if not User_curr_score.find_one({'emailid': emailid}):
+            return redirect(url_for('userpage'))
         if request.method == 'GET':
             # Finding the quesiton from Topic_wise_questions using category and question number
             topic = session['topics'][int(session['current_index']/3)]
@@ -276,7 +285,8 @@ def quizpage():
                     User_score_data.update_one(filter={'emailid': session['emailid']}, update={'$set': {f'test_data.{len(User_score_data.find_one({'emailid':session['emailid']})['test_data'])-1}': new_data,
                                                                                                         f'time_taken.{len(User_score_data.find_one({'emailid':session['emailid']})['time_taken'])-1}': time_taken,
                                                                                                         f'scores.{len(User_score_data.find_one({'emailid':session['emailid']})['scores'])-1}': score}})
-                    return redirect(url_for('userpage', message = 'Thank you for giving the test.'))
+                    # return redirect(url_for('userpage', message = 'Thank you for giving the test.'))
+                    return render_template('userpage.html', message = 'Thank you for giving the test.', test = 'complete', username = user, surname = surname)
                 elif button_clicked=='previous':
                     session['current_index'] -= 1
                 elif button_clicked=='next':
