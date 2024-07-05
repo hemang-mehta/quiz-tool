@@ -3,9 +3,6 @@
 Welcome to Quiz-tool! This project creates a website where users can signup/login to give quiz on computer-science questions. The questions are divided into easy, mdeium and hard levels and they are scored accordingly. The questions are scrapped from live websites and are stored on Mongo DataBase for further use.
 
 ## Overview 
-
-This project is aimed at building and evaluating a CNN model for image classification. The CIFAR-10 dataset, consisting of 10 different classes of images, is used for training and testing the model.
-
 This project is aimed at building a website that can generate quizzes for students on the subject of computer science. The questions are scraped from live websites to avoid the overuse and aging away of questions.
 
 ### Questions 
@@ -23,14 +20,6 @@ The main languages used for creating these webpages were HTML and CSS. To handle
 
 - Admin account - 
 The admin has access to the database questions that are displayed on a webpage where the admin can change their difficulty level as required. This will directly make changes to the database. The admin is also provided with a button to get new questions from the links or scrape the questions currently present on the live website.
-
-## Model Testing 
-
-The testing script loads the trained model and evaluates it on new images from the CIFAR-10 dataset. Steps include:
-
-  1. Loading the Trained Model: Loading the model parameters saved in the "cnn.pth" file.
-  2. Preprocessing: Preprocessing the input images to match the model's expected input.
-  3. Prediction: Using the model to predict the class of the input images.
 
 ## Flask Framework 
 
