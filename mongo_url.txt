@@ -1,0 +1,2 @@
+mongodb+srv://hemangmehta1703:hemang@mcq-tool.orytooa.mongodb.net/?retryWrites=true&w=majority&appName=MCQ-tool
+quiz-tool..

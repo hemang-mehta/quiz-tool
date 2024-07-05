@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import datetime
 from pymongo import MongoClient
+from string import printable
 # from Web_scrapping import gfg_ques_retrieval
 
 file = open('mongo_url.txt')
@@ -74,6 +75,13 @@ def signup():
         elif User_login_data.find_one({'emailid': emailid}):
             error = "You already have an account"
         else:
+            if len(password)<6:
+                error = '-> Password must be of length 6.\n'
+                if not set(password).difference(printable):
+                    error += '-> Password must contain a special character.\n'
+                if not any(char.isdigit() for char in password):
+                    error += '-> Password must contain a number.\n'
+                return render_template('signup.html', error = error)
             User_login_data.insert_one({'name':name, 'surname':surname, 'password':password, 'emailid': emailid, 'experience': exp})
             User_score_data.insert_one({'emailid': emailid, 'num_tests': 0, 'test_data':[], 'scores':[], 'date': [], 'time_taken': []})
         if error == None:
